@@ -1,0 +1,579 @@
+/* =====================================================
+   1주년 방명록 이벤트 - CSS
+   /css/module/board/events/event_anniversary.css
+   ===================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Gaegu:wght@400;700&family=Pretendard:wght@400;500;600;700&display=swap');
+
+:root {
+  --cork:        #f0e0c8;
+  --cork-shadow: #dbc9a8;
+  --warm-bg:     #faf5ee;
+  --accent:      #ff7043;
+  --accent-dark: #e64a19;
+  --text-dark:   #2e221a;
+  --text-mid:    #7a5c48;
+  --text-light:  #b89a85;
+  --border:      #e8d0b8;
+  --white:       #ffffff;
+  --radius-lg:   20px;
+  --radius-md:   12px;
+  --shadow-card: 3px 6px 18px rgba(0,0,0,.13);
+  --shadow-hover:6px 12px 28px rgba(0,0,0,.2);
+}
+
+/* ── 전체 ───────────────────────────── */
+.forb-event {
+  background: var(--warm-bg);
+  min-height: 100vh;
+  padding: 0 0 80px;
+}
+
+.event-container {
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* ── 히어로 헤더 ─────────────────────── */
+.event-container__header {
+  text-align: center;
+  padding: 64px 20px 48px;
+  position: relative;
+}
+
+.event__confetti-row {
+  font-size: 32px;
+  letter-spacing: 8px;
+  margin-bottom: 20px;
+  animation: confetti-float 3s ease-in-out infinite;
+}
+
+@keyframes confetti-float {
+  0%,100% { transform: translateY(0) rotate(0deg); }
+  33%      { transform: translateY(-6px) rotate(-3deg); }
+  66%      { transform: translateY(-2px) rotate(2deg); }
+}
+
+.event-container__title {
+  font-family: 'Gaegu', cursive;
+  font-size: 48px;
+  font-weight: 700;
+  color: var(--text-dark);
+  margin: 0 0 16px;
+  line-height: 1.2;
+}
+
+.event-container__title em {
+  color: var(--accent);
+  font-style: normal;
+  display: inline-block;
+  animation: pulse-color 2.5s ease-in-out infinite;
+}
+
+@keyframes pulse-color {
+  0%,100% { color: var(--accent); }
+  50%      { color: var(--accent-dark); }
+}
+
+.event-container__desc {
+  font-family: 'Pretendard', sans-serif;
+  font-size: 15px;
+  color: var(--text-mid);
+  line-height: 1.8;
+  margin: 0;
+}
+
+.event__reward-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 20px;
+  padding: 10px 22px;
+  border-radius: 50px;
+  font-family: 'Pretendard', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--accent-dark);
+}
+
+/* ── 안내 박스 ──────────────────────── */
+.notice-box {
+  background: #fffaf6;
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 22px 28px;
+  margin-bottom: 24px;
+  text-align: center;
+}
+
+.notice-box__title {
+  font-family: 'Pretendard', sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text-dark);
+  margin-bottom: 6px;
+}
+
+.notice-box__text {
+  font-family: 'Pretendard', sans-serif;
+  font-size: 13px;
+  color: var(--text-mid);
+}
+
+.hidden { display: none !important; }
+
+/* ── 로그인 버튼 ─────────────────────── */
+.login-button {
+  display: block;
+  margin: 0 auto 32px;
+  padding: 15px 40px;
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  border-radius: 50px;
+  font-family: 'Pretendard', sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 6px 20px rgba(255,112,67,.38);
+  transition: transform .18s, box-shadow .18s;
+  letter-spacing: -0.2px;
+}
+
+.login-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 28px rgba(255,112,67,.48);
+}
+
+/* ── 보드 섹션 ──────────────────────── */
+.board-section {
+  position: relative;
+  background: var(--cork);
+  border-radius: var(--radius-lg);
+  padding: 40px 32px 36px;
+  margin-bottom: 32px;
+  box-shadow:
+    inset 0 2px 10px rgba(0,0,0,.07),
+    0 4px 0 var(--cork-shadow);
+  overflow: hidden;
+}
+
+/* 코르크 텍스처 */
+.board-section::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: var(--radius-lg);
+  pointer-events: none;
+  background-image:
+    radial-gradient(ellipse at 15% 25%, rgba(255,255,255,.22) 0%, transparent 55%),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='6' height='6'%3E%3Crect width='6' height='6' fill='%23edcfa8'/%3E%3Ccircle cx='1.5' cy='1.5' r='1' fill='%23e4c49a' opacity='.6'/%3E%3Ccircle cx='4.5' cy='4.5' r='.8' fill='%23f5dfc0' opacity='.5'/%3E%3Ccircle cx='4' cy='1.5' r='.5' fill='%23d9b88a' opacity='.4'/%3E%3C/svg%3E");
+}
+
+/* 보드 제목 */
+.board-section__heading {
+  position: relative;
+  z-index: 1;
+  font-family: 'Gaegu', cursive;
+  font-size: 22px;
+  color: var(--text-dark);
+  margin-bottom: 24px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.board-section__count {
+  font-family: 'Pretendard', sans-serif;
+  font-size: 13px;
+  background: rgba(255,255,255,.7);
+  padding: 3px 10px;
+  border-radius: 50px;
+  color: var(--text-mid);
+  font-weight: 600;
+}
+
+/* ── 입력 포스트잇 ───────────────────── */
+.board-section__write {
+  position: relative;
+  z-index: 2;
+  background: #fffde7;
+  border-radius: 6px;
+  padding: 22px 22px 16px;
+  margin-bottom: 32px;
+  box-shadow: var(--shadow-card);
+  transform: rotate(-1deg);
+  max-width: 420px;
+}
+
+.board-section__write::before {
+  content: '';
+  position: absolute;
+  top: -8px; left: 50%;
+  transform: translateX(-50%);
+  width: 16px; height: 16px;
+  background: radial-gradient(circle at 38% 35%, #ff8a80, #c0392b);
+  border-radius: 50%;
+  box-shadow: 0 2px 5px rgba(0,0,0,.28);
+}
+
+.board-section__write-label {
+  font-family: 'Gaegu', cursive;
+  font-size: 18px;
+  color: var(--text-mid);
+  margin-bottom: 12px;
+}
+
+.board-section__textarea {
+  width: 100%;
+  height: 86px;
+  background: transparent;
+  border: none;
+  border-bottom: 2px dashed #d7c88a;
+  resize: none;
+  font-family: 'Gaegu', cursive;
+  font-size: 18px;
+  color: var(--text-dark);
+  outline: none;
+  line-height: 1.7;
+  box-sizing: border-box;
+}
+
+.board-section__textarea::placeholder { color: #c8b580; }
+
+.board-section__submit-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 14px;
+}
+
+.board-section__char-count {
+  font-family: 'Pretendard', sans-serif;
+  font-size: 12px;
+  color: var(--text-light);
+}
+
+.board-section__char-count.warn { color: var(--accent); }
+
+.board-section__submit-btn {
+  padding: 9px 22px;
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  border-radius: 50px;
+  font-family: 'Pretendard', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 3px 10px rgba(255,112,67,.35);
+  transition: transform .15s, background .15s, box-shadow .15s;
+}
+
+.board-section__submit-btn:hover:not(:disabled) {
+  background: var(--accent-dark);
+  transform: scale(1.05);
+  box-shadow: 0 5px 16px rgba(255,112,67,.45);
+}
+
+.board-section__submit-btn:disabled {
+  background: #d4bfb0;
+  box-shadow: none;
+  cursor: not-allowed;
+}
+
+/* 저장 중 스피너 */
+.board-section__submit-btn.loading::after {
+  content: '';
+  display: inline-block;
+  width: 12px; height: 12px;
+  border: 2px solid rgba(255,255,255,.4);
+  border-top-color: #fff;
+  border-radius: 50%;
+  margin-left: 8px;
+  animation: spin .6s linear infinite;
+  vertical-align: middle;
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ── 포스트잇 보드 ───────────────────── */
+.postit-board {
+  position: relative;
+  z-index: 1;
+  min-height: 300px;
+  display: flex;
+  flex-wrap: wrap;
+  align-content: flex-start;
+  gap: 4px;
+}
+
+.postit-board__empty {
+  width: 100%;
+  text-align: center;
+  padding: 70px 0;
+  font-family: 'Gaegu', cursive;
+  font-size: 20px;
+  color: #c4a87c;
+  line-height: 1.8;
+}
+
+/* 로딩 스켈레톤 */
+.postit-board__loading {
+  width: 100%;
+  text-align: center;
+  padding: 70px 0;
+  font-family: 'Pretendard', sans-serif;
+  font-size: 14px;
+  color: var(--text-light);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+}
+
+.postit-board__loading-spinner {
+  width: 28px; height: 28px;
+  border: 3px solid rgba(0,0,0,.1);
+  border-top-color: var(--accent);
+  border-radius: 50%;
+  animation: spin .7s linear infinite;
+}
+
+/* ── 포스트잇 카드 ───────────────────── */
+.postit {
+  position: relative;
+  width: 168px;
+  min-height: 165px;
+  padding: 22px 14px 16px;
+  margin: 8px 6px;
+  border-radius: 3px;
+  box-shadow: var(--shadow-card);
+  font-family: 'Gaegu', cursive;
+  word-break: break-all;
+  transition: transform .22s cubic-bezier(.175,.885,.32,1.275), box-shadow .22s;
+  cursor: default;
+  flex-shrink: 0;
+  animation: postit-appear .5s cubic-bezier(.175,.885,.32,1.275) both;
+}
+
+@keyframes postit-appear {
+  from { opacity: 0; transform: scale(.55) translateY(16px); }
+  to   { opacity: 1; }
+}
+
+.postit:hover {
+  z-index: 20;
+  box-shadow: var(--shadow-hover);
+}
+
+/* 핀 */
+.postit::before {
+  content: '';
+  position: absolute;
+  top: -8px; left: 50%;
+  transform: translateX(-50%);
+  width: 15px; height: 15px;
+  border-radius: 50%;
+  box-shadow: 0 2px 6px rgba(0,0,0,.3);
+}
+
+/* 접힌 모서리 */
+.postit::after {
+  content: '';
+  position: absolute;
+  bottom: 0; right: 0;
+  width: 22px; height: 22px;
+  border-radius: 0 0 3px 0;
+}
+
+/* 색상 시리즈 */
+.postit--y  { background: #fff9c4; }
+.postit--y::before  { background: radial-gradient(circle at 38% 35%, #ffd54f, #f57f17); }
+.postit--y::after   { background: linear-gradient(225deg, rgba(0,0,0,.1) 50%, transparent 50%); }
+
+.postit--p  { background: #fce4ec; }
+.postit--p::before  { background: radial-gradient(circle at 38% 35%, #f48fb1, #880e4f); }
+.postit--p::after   { background: linear-gradient(225deg, rgba(0,0,0,.09) 50%, transparent 50%); }
+
+.postit--m  { background: #e0f7fa; }
+.postit--m::before  { background: radial-gradient(circle at 38% 35%, #80deea, #006064); }
+.postit--m::after   { background: linear-gradient(225deg, rgba(0,0,0,.09) 50%, transparent 50%); }
+
+.postit--b  { background: #e8eaf6; }
+.postit--b::before  { background: radial-gradient(circle at 38% 35%, #9fa8da, #1a237e); }
+.postit--b::after   { background: linear-gradient(225deg, rgba(0,0,0,.09) 50%, transparent 50%); }
+
+.postit--g  { background: #f1f8e9; }
+.postit--g::before  { background: radial-gradient(circle at 38% 35%, #aed581, #33691e); }
+.postit--g::after   { background: linear-gradient(225deg, rgba(0,0,0,.09) 50%, transparent 50%); }
+
+.postit--o  { background: #fff3e0; }
+.postit--o::before  { background: radial-gradient(circle at 38% 35%, #ffb74d, #e65100); }
+.postit--o::after   { background: linear-gradient(225deg, rgba(0,0,0,.09) 50%, transparent 50%); }
+
+/* 각도 분산 */
+.postit:nth-child(6n+1) { transform: rotate(-2.8deg); }
+.postit:nth-child(6n+2) { transform: rotate( 1.5deg); }
+.postit:nth-child(6n+3) { transform: rotate(-0.8deg); }
+.postit:nth-child(6n+4) { transform: rotate( 2.6deg); }
+.postit:nth-child(6n+5) { transform: rotate(-1.8deg); }
+.postit:nth-child(6n)   { transform: rotate( 0.5deg); }
+
+.postit:nth-child(6n+1):hover { transform: rotate(-2.8deg) scale(1.07); }
+.postit:nth-child(6n+2):hover { transform: rotate( 1.5deg) scale(1.07); }
+.postit:nth-child(6n+3):hover { transform: rotate(-0.8deg) scale(1.07); }
+.postit:nth-child(6n+4):hover { transform: rotate( 2.6deg) scale(1.07); }
+.postit:nth-child(6n+5):hover { transform: rotate(-1.8deg) scale(1.07); }
+.postit:nth-child(6n):hover   { transform: rotate( 0.5deg) scale(1.07); }
+
+.postit__id {
+  font-size: 12px;
+  font-weight: 700;
+  font-family: 'Pretendard', sans-serif;
+  color: rgba(46,34,26,.55);
+  margin-bottom: 10px;
+  letter-spacing: -0.1px;
+}
+
+.postit__text {
+  font-size: 16.5px;
+  color: var(--text-dark);
+  line-height: 1.65;
+}
+
+.postit__time {
+  font-size: 10.5px;
+  font-family: 'Pretendard', sans-serif;
+  color: rgba(46,34,26,.38);
+  margin-top: 14px;
+  text-align: right;
+}
+
+/* 내 포스트잇 하이라이트 */
+.postit--mine {
+  box-shadow: 0 0 0 2.5px var(--accent), var(--shadow-card) !important;
+}
+
+/* ── 이벤트 안내 ─────────────────────── */
+.info-section {
+  background: #fffaf6;
+  border: 1.5px dashed var(--border);
+  border-radius: var(--radius-lg);
+  padding: 26px 32px;
+}
+
+.info-section__title {
+  font-family: 'Pretendard', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text-dark);
+  margin-bottom: 14px;
+  letter-spacing: -0.2px;
+}
+
+.info-section__list {
+  padding: 0; margin: 0; list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.info-section__list li {
+  font-family: 'Pretendard', sans-serif;
+  font-size: 13.5px;
+  color: var(--text-mid);
+  padding-left: 16px;
+  position: relative;
+  line-height: 1.6;
+}
+
+.info-section__list li::before {
+  content: '·';
+  position: absolute;
+  left: 4px;
+  color: var(--accent);
+  font-weight: 700;
+}
+
+/* ── 토스트 ──────────────────────────── */
+.evt-toast {
+  position: fixed;
+  bottom: 36px; left: 50%;
+  transform: translateX(-50%) translateY(60px);
+  padding: 13px 30px;
+  background: #2e221a;
+  color: #fff;
+  border-radius: 50px;
+  font-family: 'Pretendard', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  z-index: 9999;
+  opacity: 0;
+  pointer-events: none;
+  white-space: nowrap;
+  transition: opacity .3s, transform .3s;
+  box-shadow: 0 6px 24px rgba(0,0,0,.22);
+}
+
+.evt-toast.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* ── 반응형 ──────────────────────────── */
+@media (max-width: 640px) {
+  .event-container__title { font-size: 34px; }
+  .board-section { padding: 28px 16px 24px; }
+  .postit { width: 144px; min-height: 148px; font-size: 15px; }
+  .board-section__write { max-width: 100%; }
+  .info-section { padding: 20px 20px; }
+}
+ /* 비로그인 오버레이 스타일 */
+#writeArea {
+  position: relative;
+  overflow: hidden;
+}
+.write-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 253, 231, 0.88);
+  backdrop-filter: blur(2px);
+  border-radius: 6px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  z-index: 10;
+}
+.write-overlay__icon { font-size: 28px; }
+.write-overlay__text {
+  font-family: 'Pretendard', 'Noto Sans KR', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  color: #8a7060;
+}
+.write-overlay__btn {
+  margin-top: 4px;
+  padding: 8px 22px;
+  background: #ff7043;
+  color: #fff;
+  border: none;
+  border-radius: 50px;
+  font-family: 'Pretendard', 'Noto Sans KR', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform .15s, background .15s;
+}
+.write-overlay__btn:hover { background: #e64a19; transform: scale(1.04); }
+
+#writeArea.is-logoff .board-section__textarea,
+#writeArea.is-logoff .board-section__submit-btn,
+#writeArea.is-logoff .board-section__char-count {
+  opacity: 0.3;
+  pointer-events: none;
+  user-select: none;
+}

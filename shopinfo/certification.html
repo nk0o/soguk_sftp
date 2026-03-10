@@ -1,0 +1,239 @@
+
+<!--@layout(/layout/basic/layout.html)-->
+<div class="section path">
+    <span>현재 위치</span>
+    <ol>
+        <li><a href="/">홈</a></li>
+        <li title="현재 위치"><strong>test</strong></li>
+    </ol>
+</div>
+<div class="section titleArea">
+    <h2>test</h2>
+</div>
+<div class="section">
+  <div class="nk-serial">
+    <h2 class="nk-serial__title">정품 인증 등록</h2>
+    
+    <!-- ===== 비로그인 상태 (카페24 모듈) ===== -->
+    <div module="Layout_stateLogoff">
+      <div class="nk-serial__login-required">
+        <p><strong>🔒 로그인이 필요한 서비스입니다</strong></p>
+        <p>정품 인증을 위해서는 회원 로그인이 필요합니다.</p>
+        <a href="/member/login.html" class="nk-serial__login-btn">로그인 하러 가기</a>
+      </div>
+    </div>
+    
+    <!-- ===== 로그인 상태 (카페24 모듈) ===== -->
+    <div module="Layout_stateLogon">
+      <!-- 회원 정보 표시 -->
+      <div class="nk-serial__user-info">
+        <p><strong>👤 회원정보</strong></p>
+        <p>이름: <span id="nk_member_name">{$name}</span></p>
+        <p>아이디: <span id="nk_member_id">{$id}</span></p>
+      </div>
+      
+      <!-- 시리얼 입력 폼 -->
+      <form class="nk-serial__form" id="nk_serial_form" onsubmit="event.preventDefault(); verifySerial();">
+        <input 
+          type="text" 
+          id="nk_serial_code"
+          class="nk-serial__input"
+          placeholder="시리얼 코드 입력 (예: ABCD-1234-EFGH-5678)"
+          required
+          autocomplete="off"
+        >
+        <button type="submit" class="nk-serial__submit">인증하기</button>
+      </form>
+      
+      <div id="nk_result" class="nk-serial__result"></div>
+      
+      <!-- 등록 이력 -->
+      <div id="nk_history" class="nk-serial__history nk-serial__history--hidden">
+        <h3 class="nk-serial__history-title">📋 내 등록 이력</h3>
+        <div id="nk_history_list" class="nk-serial__history-list"></div>
+      </div>
+    </div>
+  </div>
+</div><!-- //section -->
+
+  <script type="module">
+    import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
+    import { getDatabase, ref, get, update } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js';
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyD6FY-CACPi7X0iI7_t-_kyjNa95dnxuwg",
+      authDomain: "soguk-7cb8f.firebaseapp.com",
+      databaseURL: "https://soguk-7cb8f-default-rtdb.asia-southeast1.firebasedatabase.app",
+      projectId: "soguk-7cb8f",
+      storageBucket: "soguk-7cb8f.firebasestorage.app",
+      messagingSenderId: "1094854280238",
+      appId: "1:1094854280238:web:af3f34bbc54dee28354bbf"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const database = getDatabase(app);
+
+    let isProcessing = false;
+    let currentUser = null;
+
+    // ===== 카페24 회원 정보 가져오기 =====
+    function getUserInfo() {
+      const memberName = document.getElementById('nk_member_name')?.textContent || 
+                        getCookie('ecs_membername') || '회원';
+      const memberId = document.getElementById('nk_member_id')?.textContent || 
+                      getCookie('ecs_memberid') || 
+                      (typeof CAFE24 !== 'undefined' ? CAFE24.SHOP_NO : null);
+      
+      if (!memberId || memberId === '{$id}') {
+        return null;
+      }
+      
+      return {
+        id: memberId,
+        name: memberName === '{$name}' ? '회원' : memberName
+      };
+    }
+
+    // ===== 쿠키 읽기 =====
+    function getCookie(name) {
+      const value = `; ${document.cookie}`;
+      const parts = value.split(`; ${name}=`);
+      if (parts.length === 2) return decodeURIComponent(parts.pop().split(';').shift());
+      return null;
+    }
+
+    // ===== 시리얼 코드 검증 =====
+    window.verifySerial = async function() {
+      if (isProcessing) return;
+      
+      currentUser = getUserInfo();
+      if (!currentUser) {
+        alert('로그인 정보를 확인할 수 없습니다. 다시 로그인해주세요.');
+        location.href = '/member/login.html';
+        return;
+      }
+      
+      const serialCode = document.getElementById('nk_serial_code').value.trim().toUpperCase();
+      const resultDiv = document.getElementById('nk_result');
+      const submitButton = document.querySelector('.nk-serial__submit');
+      
+      if (!serialCode) {
+        resultDiv.innerHTML = '<p style="color: red;">시리얼 코드를 입력해주세요.</p>';
+        return;
+      }
+
+      isProcessing = true;
+      submitButton.disabled = true;
+      submitButton.textContent = '확인 중...';
+      resultDiv.innerHTML = '<p style="color: #666;">확인 중...</p>';
+
+      try {
+        console.log('🔍 시리얼 코드:', serialCode);
+        console.log('👤 사용자:', currentUser);
+        
+        const serialRef = ref(database, `serials/${serialCode}`);
+        const snapshot = await get(serialRef);
+
+        if (snapshot.exists()) {
+          const data = snapshot.val();
+          
+          if (data.is_used) {
+            const isMine = data.customer_id === currentUser.id;
+            resultDiv.innerHTML = `
+              <p style="color: red; font-weight: bold;">❌ 이미 사용된 코드입니다.</p>
+              <p style="color: #666; font-size: 14px;">등록일: ${new Date(data.registered_at).toLocaleDateString('ko-KR')}</p>
+              ${isMine ? '<p style="color: #666; font-size: 14px;">본인이 등록한 코드입니다.</p>' : ''}
+            `;
+          } else {
+            await update(serialRef, {
+              is_used: true,
+              customer_id: currentUser.id,
+              customer_name: currentUser.name,
+              registered_at: new Date().toISOString()
+            });
+            
+            resultDiv.innerHTML = `
+              <p style="color: green; font-weight: bold;">✅ 인증 완료!</p>
+              <p style="color: #333;">제품: ${data.product_name || '제품명 없음'}</p>
+              <p style="color: #666;">등록일: ${new Date().toLocaleDateString('ko-KR')}</p>
+              <p style="color: #666;">등록자: ${currentUser.name}</p>
+            `;
+            
+            document.getElementById('nk_serial_code').value = '';
+            setTimeout(() => loadUserHistory(), 1000);
+          }
+        } else {
+          resultDiv.innerHTML = '<p style="color: red; font-weight: bold;">❌ 유효하지 않은 코드입니다.</p>';
+        }
+      } catch (error) {
+        console.error('🚨 에러 발생!', error);
+        resultDiv.innerHTML = `
+          <p style="color: red; font-weight: bold;">❌ 오류가 발생했습니다</p>
+          <p style="color: #666; font-size: 14px;">에러: ${error.message}</p>
+        `;
+      } finally {
+        isProcessing = false;
+        submitButton.disabled = false;
+        submitButton.textContent = '인증하기';
+      }
+    };
+
+    // ===== 사용자 등록 이력 불러오기 =====
+    async function loadUserHistory() {
+      currentUser = getUserInfo();
+      if (!currentUser) return;
+      
+      try {
+        const serialsRef = ref(database, 'serials');
+        const snapshot = await get(serialsRef);
+        
+        if (!snapshot.exists()) return;
+        
+        const allSerials = snapshot.val();
+        const mySerials = [];
+        
+        for (const [code, data] of Object.entries(allSerials)) {
+          if (data.is_used && data.customer_id === currentUser.id) {
+            mySerials.push({
+              code: code,
+              product: data.product_name || '제품명 없음',
+              date: data.registered_at
+            });
+          }
+        }
+        
+        if (mySerials.length > 0) {
+          mySerials.sort((a, b) => new Date(b.date) - new Date(a.date));
+          
+          const historyDiv = document.getElementById('nk_history');
+          const historyList = document.getElementById('nk_history_list');
+          
+          historyList.innerHTML = mySerials.map(item => `
+            <div class="nk-serial__history-item">
+              <p><strong>📦 ${item.product}</strong></p>
+              <p>코드: ${item.code}</p>
+              <p>등록일: ${new Date(item.date).toLocaleDateString('ko-KR', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+              })}</p>
+            </div>
+          `).join('');
+          
+          historyDiv.classList.remove('nk-serial__history--hidden');
+        }
+      } catch (error) {
+        console.error('이력 로드 실패:', error);
+      }
+    }
+
+    // ===== 페이지 로드 시 이력 불러오기 =====
+   window.addEventListener('DOMContentLoaded', () => {
+      const logonDiv = document.querySelector('#nk_member_id');
+      if (logonDiv && logonDiv.offsetParent !== null) {
+        setTimeout(() => loadUserHistory(), 500);
+      }
+    });
+  </script>

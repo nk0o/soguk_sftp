@@ -1,0 +1,109 @@
+
+<!--@layout(/layout/basic/layout.html)-->
+<div class="section path">
+    <span>현재 위치</span>
+    <ol>
+        <li><a href="/">홈</a></li>
+        <li title="현재 위치"><strong>설문조사</strong></li>
+    </ol>
+</div>
+<div class="section titleArea">
+    <h2>설문조사</h2>
+</div>
+<div class="section">
+    <div module="Layout_stateLogoff">
+      <div class="nana-survey">
+        <div class="nana-survey__login-required">
+          <p><strong>🔒 로그인이 필요한 서비스입니다</strong></p>
+          <p>로그인 후 설문 참여가 가능합니다.</p>
+          <a href="/member/login.html" class="nana-survey__login-btn">로그인 하러 가기</a>
+        </div>
+      </div><!-- //nana-survey -->
+    </div>
+    
+    <div module="Layout_stateLogon">
+      <div class="nana-survey">
+        <div id="userName" style="opacity: 0;">{$name}</div>
+        <div class="flex-center"><button class="nana-btn nana-btn__primary nana-survey__btn" id="sendBtn">...확인중</button></div>
+        <div class="nana-survey__iframe" style="display: none;">
+          <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSdavdwnbf2VvizXj5gSArZ3PXiuuR5sD27xRMaa52Y_nzqf7g/viewform?embedded=true" width="640" height="606" frameborder="0" marginheight="0" marginwidth="0">로드 중…</iframe>
+        </div>
+      </div><!-- //nana-survey -->
+    </div>
+</div><!-- //section -->
+<script>
+  // 페이지 로드 시 참여 여부 확인
+document.addEventListener('DOMContentLoaded', function() {
+    const checkElement = setInterval(function() {
+    const userNameElement = document.getElementsByClassName('xans-member-var-name')[0];
+    const btn = document.getElementById('sendBtn');
+    
+    if (userNameElement) {
+      clearInterval(checkElement); // 요소 찾으면 interval 중지
+      const userName = userNameElement.innerHTML;
+      
+      // 참여 여부 확인
+      fetch('https://script.google.com/macros/s/AKfycbzvnBR6SclnrYwqTgjRdWQ9wnorvGtihcd3ec7GMyWEujFp0PgoUFMRsUOOseSkF5b0/exec?userName=' + encodeURIComponent(userName))
+        .then(res => res.json())
+        .then(data => {
+          if (data.participated) {
+            btn.textContent = userName + '님은 이미 참여하셨습니다';
+            btn.disabled = true;
+            btn.classList.add('nana-btn--disabled');
+          }
+        })
+        .catch(error => {
+          console.error('참여 여부 확인 오류:', error);
+        });
+    }
+  }, 100); 
+  
+  setTimeout(function() {
+    clearInterval(checkElement);
+  }, 5000);
+});
+
+
+
+document.getElementById('sendBtn').addEventListener('click', function () {
+  const btn = this;
+  const iframe = document.querySelector('.nana-survey__iframe');
+  const userName = document.getElementsByClassName('xans-member-var-name')[0].innerHTML;
+  
+  btn.textContent = '확인 중...';
+  
+  fetch('https://script.google.com/macros/s/AKfycbzvnBR6SclnrYwqTgjRdWQ9wnorvGtihcd3ec7GMyWEujFp0PgoUFMRsUOOseSkF5b0/exec?userName=' + encodeURIComponent(userName))
+    .then(res => res.json())
+    .then(data => {
+      if (data.participated) {
+        btn.textContent = userName + '님! 이미 참여하셨군요!';
+        btn.disabled = true;
+        btn.classList.add('nana-btn--disabled');
+      } else {
+        btn.textContent = '설문참여하기 ▼';
+        return fetch('https://script.google.com/macros/s/AKfycbzvnBR6SclnrYwqTgjRdWQ9wnorvGtihcd3ec7GMyWEujFp0PgoUFMRsUOOseSkF5b0/exec', {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            userName: userName,
+            source: 'cafe24'
+          })
+        })
+        .then(() => {
+          console.log('설문조사 참여가 기록되었습니다.');
+          btn.textContent = '참여해주셔서 감사합니다.';
+          iframe.style.display = 'block';
+          btn.style.display = 'none';
+        });
+      }
+    })
+    .catch(error => {
+      console.error('Error:', error);
+      alert('오류가 발생했습니다. 다시 시도해주세요.');
+      btn.textContent = userName + '님! 설문조사 참여하시겠어요? ▼';
+    });
+});
+</script>

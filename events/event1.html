@@ -1,0 +1,322 @@
+<!--@layout(/layout/basic/layout.html)-->
+<div class="section path">
+    <span>현재 위치</span>
+    <ol>
+        <li><a href="/">홈</a></li>
+        <li title="현재 위치"><strong>이벤트</strong></li>
+    </ol>
+</div>
+  <!-- e:section path -->
+
+<div class="section titleArea">
+    <h2>이벤트</h2>
+</div>
+<!-- e:section titleArea -->
+<div class="section forb-event">
+    <!--@css(/css/module/board/events/event1.css)-->
+
+      <div class="event-container">
+    <div class="event-container__header">
+      <h1 class="event-container__title">🎉 결제 랜덤 쿠폰 이벤트 🎉</h1>
+      <p class="event-container__desc">지금 구매하고 최대 50% 할인 받으세요!</p>
+    </div>
+    <div class="event__content">
+      <!-- 비로그인 안내 -->
+      <div module="Layout_stateLogoff" class="notice-box">
+        <div class="notice-box__title">🔒 로그인이 필요합니다</div>
+        <div class="notice-box__text">이벤트 참여를 위해 로그인해주세요</div>
+      </div>
+
+      <!-- 이미 참여한 회원 안내 -->
+      <div module="Layout_stateLogon" id="alreadyParticipated" class="notice-box hidden">
+        <div class="notice-box__title">✅ 이미 참여하셨습니다</div>
+        <div class="notice-box__text">발급받은 쿠폰을 확인해주세요</div>
+      </div>
+
+      <div class="coupon-display" id="couponDisplay">
+        <div class="coupon-display__state" id="initialState">
+          <div class="coupon-display__icon">🎁</div>
+          <div class="coupon-display__text">버튼을 눌러 랜덤 쿠폰을 받아보세요!</div>
+        </div>
+      </div>
+
+      <!-- 로그인 버튼 (비로그인 시에만 표시) -->
+      <button module="Layout_stateLogoff" class="login-button" onclick="goToLogin()">
+        로그인하고 참여하기 🔐
+      </button>
+
+      <!-- 쿠폰 뽑기 버튼 (로그인 시에만 표시) -->
+      <button module="Layout_stateLogon" class="spin-button" id="spinButton" onclick="spinCoupon()">
+        쿠폰 뽑기 🎰
+      </button>
+
+      <div class="info-section">
+        <h3 class="info-section__title">📌 이벤트 안내</h3>
+        <ul class="info-section__list">
+          <li>로그인한 회원만 참여 가능합니다</li>
+          <li>쿠폰은 30% 또는 50% 할인 중 랜덤 지급</li>
+          <li>발급된 쿠폰은 30일간 사용 가능합니다</li>
+          <li>1인 1회 참여 가능합니다</li>
+          <li>모든 상품에 적용 가능합니다</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+      <!-- e:event-container-->
+
+   <script>
+    const coupons = [
+      {
+        discount: '30%',
+        code: 'FORYOU26',
+        probability: 50,
+        color: 'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)'
+      },
+      {
+        discount: '50%',
+        code: 'SURPRISE26',
+        probability: 50,
+        color: 'linear-gradient(135deg, #fa709a 0%, #fee140 100%)'
+      }
+    ];
+
+    let isSpinning = false;
+    const EVENT_KEY = 'random_coupon_event_2026';
+
+    // 페이지 로드 시 참여 이력 확인
+    window.onload = function () {
+      if (typeof CAPP_ASYNC_METHODS !== 'undefined' && !CAPP_ASYNC_METHODS.IS_LOGIN) {
+        return;
+      }
+      checkParticipation();
+    };
+
+    // 회원 ID 가져오기
+    function getMemberId(callback) {
+      if (window.CAFE24API) {
+        CAFE24API.getMemberID(function (memberId) {
+          callback(memberId);
+        });
+      } else if (typeof CAPP_ASYNC_METHODS !== 'undefined' && CAPP_ASYNC_METHODS.AppCommon) {
+        callback(CAPP_ASYNC_METHODS.AppCommon.getMemberID());
+      } else {
+        const memberId = getCookie('EncMemberId') || getCookie('member_id');
+        callback(memberId || null);
+      }
+    }
+
+    // 쿠키 읽기 함수
+    function getCookie(name) {
+      const value = `; ${document.cookie}`;
+      const parts = value.split(`; ${name}=`);
+      if (parts.length === 2) {
+        return parts.pop().split(';').shift();
+      }
+      return '';
+    }
+
+    // 쿠키 설정 함수
+    function setCookie(name, value, days) {
+      const expires = new Date();
+      expires.setTime(expires.getTime() + (days * 24 * 60 * 60 * 1000));
+      document.cookie = `${name}=${value};expires=${expires.toUTCString()};path=/`;
+    }
+
+    // 참여 이력 확인
+    function checkParticipation() {
+      getMemberId(function (memberId) {
+        if (!memberId) {
+          return;
+        }
+
+        const participationKey = `${EVENT_KEY}_${memberId}`;
+        const couponDataKey = `${EVENT_KEY}_coupon_${memberId}`;
+        const hasParticipated = getCookie(participationKey) === 'true';
+
+        if (hasParticipated) {
+          const savedCouponData = getCookie(couponDataKey);
+
+          if (savedCouponData) {
+            try {
+              // Base64 디코딩 후 JSON 파싱
+              const decoded = atob(savedCouponData);
+              const couponData = JSON.parse(decoded);
+              showAlreadyParticipated(couponData);
+            } catch (e) {
+              console.error('쿠폰 데이터 파싱 오류:', e);
+              showAlreadyParticipated();
+            }
+          } else {
+            showAlreadyParticipated();
+          }
+        }
+      });
+    }
+
+    // 이미 참여한 경우 쿠폰 다시 표시
+    function showAlreadyParticipated(couponData) {
+      const button = document.getElementById('spinButton');
+      if (button) {
+        button.style.display = 'none';
+      }
+
+      const display = document.getElementById('couponDisplay');
+      const notice = document.getElementById('alreadyParticipated');
+
+      if (couponData && couponData.code && couponData.discount && couponData.color) {
+        // 저장된 쿠폰 정보를 다시 표시
+        display.style.background = couponData.color;
+        display.innerHTML = `
+        <div class="result-display">
+          <div class="result-discount">${couponData.discount}</div>
+          <div class="result-text">발급받은 쿠폰 🎊</div>
+          <div class="coupon-code">${couponData.code}</div>
+          <button class="copy-button" data-code="${couponData.code}">
+            📋 코드 복사하기
+          </button>
+        </div>
+      `;
+
+        if (notice) {
+          notice.classList.remove('hidden');
+        }
+      } else {
+        // 저장된 정보가 없으면 기본 메시지
+        display.innerHTML = `
+        <div class="coupon-display__icon">✅</div>
+        <div class="coupon-display__text">이미 이벤트에 참여하셨습니다</div>
+      `;
+        if (notice) {
+          notice.classList.remove('hidden');
+        }
+      }
+    }
+
+    // 로그인 페이지로 이동
+    function goToLogin() {
+      const returnUrl = encodeURIComponent(window.location.href);
+      window.location.href = `/member/login.html?return_url=${returnUrl}`;
+    }
+
+    function getRandomCoupon() {
+      const random = Math.random() * 100;
+      let cumulative = 0;
+
+      for (const coupon of coupons) {
+        cumulative += coupon.probability;
+        if (random <= cumulative) {
+          return coupon;
+        }
+      }
+      return coupons[0];
+    }
+
+    // 쿠폰 복사 이벤트
+    document.addEventListener('click', function (e) {
+      const btn = e.target.closest('.copy-button');
+      if (!btn) return;
+
+      const code = btn.dataset.code;
+      if (!code) return;
+
+      copyCoupon(code);
+    });
+
+    function copyCoupon(code) {
+      if (navigator.clipboard && window.isSecureContext) {
+        navigator.clipboard.writeText(code).then(() => {
+          showCopySuccess(code);
+        }).catch(() => {
+          legacyCopy(code);
+        });
+      } else {
+        legacyCopy(code);
+      }
+    }
+
+    function legacyCopy(code) {
+      const input = document.createElement('input');
+      input.value = code;
+      input.style.position = 'fixed';
+      input.style.opacity = '0';
+      document.body.appendChild(input);
+      input.select();
+      input.setSelectionRange(0, 99999);
+
+      try {
+        document.execCommand('copy');
+        showCopySuccess(code);
+      } catch (e) {
+        alert('쿠폰 코드: ' + code + '\n수동으로 복사해주세요.');
+      }
+
+      document.body.removeChild(input);
+    }
+
+    function showCopySuccess(code) {
+      alert('✅ 쿠폰 코드가 복사되었습니다!\n\n' + code);
+    }
+
+    function spinCoupon() {
+      if (isSpinning) return;
+
+      getMemberId(function (memberId) {
+        if (!memberId) {
+          alert('로그인이 필요합니다.');
+          goToLogin();
+          return;
+        }
+
+        const participationKey = `${EVENT_KEY}_${memberId}`;
+        const couponDataKey = `${EVENT_KEY}_coupon_${memberId}`;
+
+        if (getCookie(participationKey) === 'true') {
+          alert('이미 참여하신 이벤트입니다.');
+          checkParticipation();
+          return;
+        }
+
+        isSpinning = true;
+        const display = document.getElementById('couponDisplay');
+        const button = document.getElementById('spinButton');
+
+        button.disabled = true;
+        button.textContent = '추첨 중...';
+
+        display.innerHTML = '<div class="coupon-display__icon ani-spinning">🎰</div><div class="coupon-display__text">추첨 중...</div>';
+
+        setTimeout(() => {
+          const wonCoupon = getRandomCoupon();
+
+          display.style.background = wonCoupon.color;
+          display.innerHTML = `
+          <div class="result-display">
+            <div class="result-discount">${wonCoupon.discount}</div>
+            <div class="result-text">할인 쿠폰 당첨! 🎊</div>
+            <div class="coupon-code">${wonCoupon.code}</div>
+            <button class="copy-button" data-code="${wonCoupon.code}">
+              📋 코드 복사하기
+            </button>
+          </div>
+        `;
+
+          // 참여 이력 저장
+          setCookie(participationKey, 'true', 365);
+
+          // 쿠폰 정보를 Base64로 인코딩하여 저장
+          const couponData = {
+            code: wonCoupon.code,
+            discount: wonCoupon.discount,
+            color: wonCoupon.color
+          };
+          const encoded = btoa(JSON.stringify(couponData));
+          setCookie(couponDataKey, encoded, 365);
+
+          isSpinning = false;
+          button.style.display = 'none';
+        }, 3000);
+      });
+    }
+  </script>
+</div>
+<!-- e:section forb-event -->

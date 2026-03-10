@@ -1,0 +1,422 @@
+<!--@layout(/layout/basic/layout.html)-->
+<div class="section path">
+  <span>현재 위치</span>
+  <ol>
+    <li><a href="/">홈</a></li>
+    <li title="현재 위치"><strong>이벤트</strong></li>
+  </ol>
+</div>
+
+<div class="section titleArea">
+  <h2>이벤트</h2>
+</div>
+
+<div class="section forb-event">
+  <!--@css(/css/module/board/event/event_anniversary.css)-->
+
+  <div class="event-container">
+
+    <div class="event-container__header">
+      <div class="event__confetti-row">🎊 🎁 🎈 🎀 🎉</div>
+      <h1 class="event-container__title"><em>1주년</em> 축하 방명록</h1>
+      <p class="event-container__desc">
+        함께해주신 덕분에 여기까지 왔어요.<br>
+        소중한 한마디를 보드에 붙여주세요!
+      </p>
+      <div class="event__reward-badge">🎁 참여 시 적립금 즉시 지급</div>
+    </div>
+
+    <div class="event__content">
+
+      <!-- 이미 참여 안내 -->
+      <div id="alreadyParticipated" class="notice-box hidden">
+        <div class="notice-box__title">✅ 이미 참여하셨습니다</div>
+        <div class="notice-box__text">방명록에 메시지를 남겨주셔서 감사해요 💛</div>
+      </div>
+
+      <!-- 보드 섹션 -->
+      <div class="board-section">
+        <div class="board-section__heading">
+          📌 방명록 보드
+          <span class="board-section__count" id="boardCount">불러오는 중...</span>
+        </div>
+
+        <!-- 댓글 입력 영역 -->
+        <div id="writeArea" class="board-section__write">
+          <div class="board-section__write-label">✏️ 축하 메시지를 써주세요</div>
+          <textarea
+            id="commentText"
+            class="board-section__textarea"
+            maxlength="80"
+            placeholder="1주년을 진심으로 축하합니다! (최대 80자)"
+            oninput="onTextareaInput(this)"
+          ></textarea>
+
+          <!-- 비로그인 오버레이 -->
+          <div id="loginOverlay" class="write-overlay hidden">
+            <span class="write-overlay__icon">🔒</span>
+            <span class="write-overlay__text">로그인 후 참여 가능합니다</span>
+            <button class="write-overlay__btn" onclick="goToLogin()">로그인하러 가기</button>
+          </div>
+
+          <div class="board-section__submit-row">
+            <span class="board-section__char-count" id="charCount">0 / 80</span>
+            <button id="submitBtn" class="board-section__submit-btn" onclick="submitComment()" disabled>
+              포스트잇 붙이기 📌
+            </button>
+          </div>
+        </div>
+
+        <!-- 포스트잇 보드 -->
+        <div id="postitBoard" class="postit-board">
+          <div class="postit-board__loading">
+            <div class="postit-board__loading-spinner"></div>
+            <span>메시지를 불러오는 중...</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 이벤트 안내 -->
+      <div class="info-section">
+        <h3 class="info-section__title">📋 이벤트 안내</h3>
+        <ul class="info-section__list">
+          <li>로그인한 회원만 참여 가능합니다</li>
+          <li>1인 1회 참여 가능합니다</li>
+          <li>참여 후 적립금은 자동으로 지급됩니다</li>
+          <li>적립금은 마이페이지 &gt; 적립금 내역에서 확인 가능합니다</li>
+          <li>이벤트 기간: 2025.00.00 ~ 2025.00.00</li>
+          <li>이벤트 내용은 사전 공지 없이 변경될 수 있습니다</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+
+<!-- 토스트 -->
+<div id="evtToast" class="evt-toast"></div>
+  <!-- SDK 먼저 로드 -->
+  <script src="//s3.ap-northeast-2.amazonaws.com/cafe24api-static/v1/js/cafe24api.js"></script>
+  <script>
+    let customerPhone='';
+    let customerName='';
+    let customerEmail = '';
+    window.addEventListener('DOMContentLoaded', function() {
+    // CAFE24API.setBasicAuthKey(String clientId, String base64_encode(client_id:front_api_key));
+      (function(CAFE24API) {
+        CAFE24API.setBasicAuthKey("1ZGOdRCFAVhp40FJUAWFiB", "YjN1clUwM2Fpc0JVT3JiVk5SQzE5NA==");
+
+        CAFE24API.getCustomerInfo(function(err, res) {
+          if (err) {
+            console.log('오류', '[', err.name, ']', err.message);
+          } else {
+            customerPhone = res.customer.cellphone;
+            customerName = res.customer.name;
+            customerEmail = res.customer.email;
+          }
+        });
+
+      })(CAFE24API.init({
+        client_id: '1ZGOdRCFAVhp40FJUAWFiB',
+        version: '2025-12-01'
+      }));
+    });
+  </script>
+<!-- ──────────────────────────────────────
+     Firebase SDK (compat 버전 — import 불필요)
+────────────────────────────────────── -->
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+
+<!-- ──────────────────────────────────────
+     이벤트 스크립트
+────────────────────────────────────── -->
+<script>
+/* ════════════════════════════════════════
+   설정값
+   ════════════════════════════════════════ */
+var FIREBASE_CONFIG = {
+ 	apiKey: "AIzaSyA_RxAOrsEuqFx9IsWSJyZ-UWjtJzktEAc",
+    authDomain: "event-test-82762.firebaseapp.com",
+    projectId: "event-test-82762",
+    storageBucket: "event-test-82762.firebasestorage.app",
+    messagingSenderId: "137570959648",
+    appId: "1:137570959648:web:9cafde8a7c20fbba901745"
+};
+
+var APPS_SCRIPT_URL  = "https://script.google.com/macros/s/AKfycbyXSaXsikw93KEOAYyVRjeT5wz8ZpHCLWhZnjWEW2hJ8tBBwOtWyq9eMir2lzWeuVdV/exec";
+var COLLECTION_NAME  = "anniversary_comments";
+var MAX_POSTITS      = 60;
+
+/* ════════════════════════════════════════
+   Firebase 초기화
+   ════════════════════════════════════════ */
+firebase.initializeApp(FIREBASE_CONFIG);
+var db  = firebase.firestore();
+var col = db.collection(COLLECTION_NAME);
+
+/* ════════════════════════════════════════
+   전역 상태
+   ════════════════════════════════════════ */
+var COLORS      = ['y','p','m','b','g','o'];
+var postitIndex = 0;
+var totalCount  = 0;
+var currentMember = null; // getMemberId 콜백 후 세팅
+
+/* ════════════════════════════════════════
+   유틸 함수
+   ════════════════════════════════════════ */
+function getColor(i) { return COLORS[i % COLORS.length]; }
+
+function maskId(id) {
+  if (!id) return '익명';
+  if (id.length <= 3) return id[0] + '**';
+  return id.slice(0, id.length - 3) + '***';
+}
+
+function escapeHtml(s) {
+  return s.replace(/&/g,'&amp;').replace(/</g,'&lt;')
+          .replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+}
+
+function formatDate(ts) {
+  var d;
+  if (ts && ts.seconds) {
+    d = new Date(ts.seconds * 1000);
+  } else {
+    d = new Date(ts || Date.now());
+  }
+  return d.getFullYear() + '.'
+    + String(d.getMonth() + 1).padStart(2, '0') + '.'
+    + String(d.getDate()).padStart(2, '0');
+}
+
+function showToast(msg) {
+  var t = document.getElementById('evtToast');
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(t._tid);
+  t._tid = setTimeout(function() { t.classList.remove('show'); }, 2800);
+}
+
+function updateCount(delta) {
+  totalCount += (delta || 0);
+  var el = document.getElementById('boardCount');
+  if (el) el.textContent = totalCount + '개의 메시지';
+}
+
+/* ════════════════════════════════════════
+   포스트잇 보드에 추가
+   ════════════════════════════════════════ */
+function addToBoard(data, isMine) {
+  var board = document.getElementById('postitBoard');
+  var ph    = board.querySelector('.postit-board__empty, .postit-board__loading');
+  if (ph) ph.remove();
+
+  var el = document.createElement('div');
+  el.className = 'postit postit--' + getColor(postitIndex++) + (isMine ? ' postit--mine' : '');
+  el.innerHTML =
+    '<div class="postit__id">'   + maskId(data.memberId)        + '</div>' +
+    '<div class="postit__text">' + escapeHtml(data.comment)     + '</div>' +
+    '<div class="postit__time">' + formatDate(data.createdAt)   + '</div>';
+  board.appendChild(el);
+}
+
+/* ════════════════════════════════════════
+   Firestore: 댓글 목록 불러오기
+   ════════════════════════════════════════ */
+function loadComments() {
+  col.orderBy('createdAt', 'asc').limit(MAX_POSTITS).get()
+    .then(function(snap) {
+      var board = document.getElementById('postitBoard');
+      var ph    = board.querySelector('.postit-board__loading');
+      if (ph) ph.remove();
+
+      if (snap.empty) {
+        board.innerHTML = '<div class="postit-board__empty">아직 메시지가 없어요.<br>첫 번째 포스트잇을 붙여주세요! 🌟</div>';
+      } else {
+        snap.forEach(function(doc) {
+          var data   = doc.data();
+          var isMine = !!currentMember && data.memberId === currentMember;
+          addToBoard(data, isMine);
+        });
+      }
+      updateCount(snap.size);
+    })
+    .catch(function(err) {
+      console.error('[loadComments]', err);
+      document.getElementById('postitBoard').innerHTML =
+        '<div class="postit-board__empty">메시지를 불러올 수 없어요. 잠시 후 다시 시도해주세요.</div>';
+    });
+}
+
+/* ════════════════════════════════════════
+   Firestore: 참여 여부 확인
+   ════════════════════════════════════════ */
+function checkParticipation(memberId, callback) {
+  col.where('memberId', '==', memberId).get()
+    .then(function(snap) {
+      callback(!snap.empty);
+    })
+    .catch(function(err) {
+      console.error('[checkParticipation]', err);
+      callback(false);
+    });
+}
+
+/* ════════════════════════════════════════
+   Google Sheets 기록
+   ════════════════════════════════════════ */
+function sendToSheets(data) {
+  fetch(APPS_SCRIPT_URL, {
+    method : 'POST',
+    headers: { 'Content-Type': 'text/plain' },
+    body   : JSON.stringify(data)
+  }).then(function(r) {
+    return r.text();
+  }).then(function(res) {
+    console.log('[sendToSheets] 응답:', res);
+  }).catch(function(err) {
+    console.warn('[sendToSheets] 실패 (이벤트 참여는 정상)', err);
+  });
+}
+
+/* ════════════════════════════════════════
+   댓글 제출
+   ════════════════════════════════════════ */
+function submitComment() {
+  var textarea = document.getElementById('commentText');
+  var text     = textarea ? textarea.value.trim() : '';
+  var btn      = document.getElementById('submitBtn');
+
+  if (!text || text.length < 2) { showToast('두 글자 이상 입력해주세요 ✏️'); return; }
+  if (!currentMember)           { showToast('로그인 후 참여해주세요 🔐'); return; }
+
+  btn.disabled    = true;
+  btn.className  += ' loading';
+  btn.textContent = '저장 중';
+
+  var now = Date.now();
+
+  col.add({
+    memberId : currentMember,
+    memberName : customerName,
+    phone    : customerPhone, 
+    comment  : text,
+    createdAt: firebase.firestore.FieldValue.serverTimestamp()
+  })
+  .then(function() {
+    // Google Sheets 기록
+    sendToSheets({ memberId: currentMember, comment: text, createdAt: now, phone: customerPhone, name: customerName, email: customerEmail });
+
+    // 보드에 추가
+    addToBoard({ memberId: currentMember, comment: text, createdAt: now }, true);
+    updateCount(1);
+
+    // UI 전환
+    textarea.value = '';
+    document.getElementById('charCount').textContent = '0 / 80';
+    document.getElementById('writeArea').classList.add('hidden');
+    document.getElementById('alreadyParticipated').classList.remove('hidden');
+
+    showToast('포스트잇이 붙었어요! 🎉 감사합니다');
+  })
+  .catch(function(err) {
+    console.error('[submitComment]', err);
+    showToast('저장 오류가 발생했어요. 다시 시도해주세요.');
+    btn.disabled    = false;
+    btn.className   = btn.className.replace(' loading', '');
+    btn.textContent = '포스트잇 붙이기 📌';
+  });
+}
+
+/* ════════════════════════════════════════
+   글자 수 카운트
+   ════════════════════════════════════════ */
+function onTextareaInput(el) {
+  var len = el.value.length;
+  var countEl = document.getElementById('charCount');
+  countEl.textContent = len + ' / 80';
+  if (len >= 70) {
+    countEl.classList.add('warn');
+  } else {
+    countEl.classList.remove('warn');
+  }
+  document.getElementById('submitBtn').disabled = len < 2;
+}
+
+/* ════════════════════════════════════════
+   로그인 이동
+   ════════════════════════════════════════ */
+function goToLogin() {
+  var returnUrl = encodeURIComponent(window.location.href);
+  window.location.href = '/member/login.html?return_url=' + returnUrl;
+}
+
+/* ════════════════════════════════════════
+   카페24 회원 ID 가져오기
+   ════════════════════════════════════════ */
+function getMemberId(callback) {
+  if (window.CAFE24API) {
+    CAFE24API.getMemberID(function(memberId) {
+      callback(memberId || null);
+    });
+  } else if (typeof CAPP_ASYNC_METHODS !== 'undefined' && CAPP_ASYNC_METHODS.AppCommon) {
+    callback(CAPP_ASYNC_METHODS.AppCommon.getMemberID() || null);
+  } else {
+    callback(null);
+  }
+}
+
+/* ════════════════════════════════════════
+   초기화 — window.onload 사용
+   (DOMContentLoaded보다 늦게 실행돼서
+    카페24 CAPP_ASYNC_METHODS가 완전히
+    로드된 이후에 실행됨)
+   ════════════════════════════════════════ */
+window.onload = function() {
+
+  // 비로그인이면 UI만 세팅하고 종료
+  if (typeof CAPP_ASYNC_METHODS !== 'undefined' && !CAPP_ASYNC_METHODS.IS_LOGIN) {
+    var writeArea = document.getElementById('writeArea');
+    writeArea.classList.add('is-logoff');
+    document.getElementById('loginOverlay').classList.remove('hidden');
+    document.getElementById('commentText').disabled = true;
+    document.getElementById('submitBtn').disabled   = true;
+    loadComments(null);
+    return;
+  }
+
+  getMemberId(function(memberId) {
+    currentMember = memberId;
+
+    if (!currentMember) {
+      /* ── 비로그인 ─────────────────────────
+      textarea disabled + 오버레이 표시
+      ──────────────────────────────────── */
+      var writeArea = document.getElementById('writeArea');
+      writeArea.classList.add('is-logoff');
+      document.getElementById('loginOverlay').classList.remove('hidden');
+      document.getElementById('commentText').disabled = true;
+      document.getElementById('submitBtn').disabled   = true;
+
+      loadComments(); // 보드는 보여줌
+      return;
+    }
+
+    /* ── 로그인 상태 ────────────────────── */
+    loadComments();
+
+    checkParticipation(currentMember, function(participated) {
+      if (participated) {
+        document.getElementById('writeArea').classList.add('hidden');
+        document.getElementById('alreadyParticipated').classList.remove('hidden');
+      }
+    });
+  });
+
+};
+</script>
+
+
+
+</div><!--  //.forb-event -->

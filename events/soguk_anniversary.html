@@ -1,0 +1,56 @@
+<!--@layout(/layout/basic/layout.html)-->
+<div class="section path">
+  <span>현재 위치</span>
+  <ol>
+    <li><a href="/">홈</a></li>
+    <li title="현재 위치"><strong>이벤트</strong></li>
+  </ol>
+</div>
+<!-- e:section path -->
+
+<div class="section titleArea">
+  <h2>이벤트</h2>
+</div>
+<!-- e:section titleArea -->
+<div class="section forb-event">
+  <!--@css(/css/module/board/events/event_anniversary.css)-->
+
+  <div class="event-container">
+    <div class="event-container__header">
+      <h1 class="event-container__title">🎉 댓글 이벤트</h1>
+      <p class="event-container__desc">지금 댓글달고 적립금 받으세요!</p>
+    </div>
+    <div class="event__content">
+      <!-- 비로그인 안내 -->
+      <div module="Layout_stateLogoff" class="notice-box">
+        <div class="notice-box__title">🔒 로그인이 필요합니다</div>
+        <div class="notice-box__text">이벤트 참여를 위해 로그인해주세요</div>
+      </div>
+
+      <!-- 이미 참여한 회원 안내 -->
+      <div module="Layout_stateLogon" id="alreadyParticipated" class="notice-box hidden">
+        <div class="notice-box__title">✅ 이미 참여하셨습니다</div>
+        <div class="notice-box__text">발급받은 쿠폰을 확인해주세요</div>
+      </div>
+
+      
+      <!-- 로그인 버튼 (비로그인 시에만 표시) -->
+      <button module="Layout_stateLogoff" class="login-button" onclick="goToLogin()">
+        로그인하고 참여하기 🔐
+      </button>
+
+      <div class="info-section">
+        <h3 class="info-section__title">📌 이벤트 안내</h3>
+        <ul class="info-section__list">
+          <li>로그인한 회원만 참여 가능합니다</li>
+          <li>쿠폰은 30% 또는 50% 할인 중 랜덤 지급</li>
+          <li>발급된 쿠폰은 30일간 사용 가능합니다</li>
+          <li>1인 1회 참여 가능합니다</li>
+          <li>모든 상품에 적용 가능합니다</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <!-- e:event-container-->
+</div>
+<!-- e:section forb-event -->

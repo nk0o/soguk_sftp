@@ -1,0 +1,138 @@
+<!--@layout(/layout/basic/layout.html)-->
+
+<!--@css(/css/module/store.css)-->
+<div class="section path">
+    <span>현재 위치</span>
+    <ol>
+        <li><a href="/">홈</a></li>
+        <li title="현재 위치"><strong>매장찾기</strong></li>
+    </ol>
+</div>
+<div class="section titleArea">
+    <h2>회사소개</h2>
+</div>
+<div module="mall_company" class="section">
+    <div class="store-wrap">
+        <!-- 검색 필터 -->
+        <div class="store-filter">
+            <select id="region">
+                <option value="">지역 전체</option>
+                <option value="서울">서울</option>
+                <option value="경기">경기</option>
+            </select>
+
+            <select id="type">
+                <option value="">매장 유형</option>
+                <option value="백화점">백화점</option>
+                <option value="로드샵">로드샵</option>
+            </select>
+
+            <input type="text" id="keyword" placeholder="매장명 검색" />
+        </div>
+
+        <!-- 컨텐츠 -->
+        <div class="store-content">
+            <ul id="storeList"></ul>
+            <div id="map"></div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=351c974066d17ca20c69e8ee21439875"></script>
+<script>
+    var container = document.getElementById("map"); //지도를 담을 영역의 DOM 레퍼런스
+    var options = {
+        //지도를 생성할 때 필요한 기본 옵션
+        center: new kakao.maps.LatLng(33.450701, 126.570667), //지도의 중심좌표.
+        level: 3, //지도의 레벨(확대, 축소 정도)
+    };
+    let markers = [];
+    var map = new kakao.maps.Map(container, options); //지도 생성 및 객체 리턴
+    const stores = [
+        {
+            name: "동인기연 방화점",
+            region: "서울",
+            type: "백화점",
+            address: "서울특별시 강서구 양천로 108 한원빌딩",
+            lat: 37.5732704,
+            lng: 126.8156708,
+            url: "/store/banghwa.html",
+        },
+        {
+            name: "동인기연 김포점",
+            region: "경기",
+            type: "로드샵",
+            address: "경기도 김포시 통진읍 대곶북로 370-26",
+            lat: 37.6792368,
+            lng: 126.5754458,
+            url: "/store/gimpo.html",
+        },
+    ];
+    map = new kakao.maps.Map(document.getElementById("map"), {
+        center: new kakao.maps.LatLng(37.5, 127),
+        level: 8,
+    });
+    function render(data) {
+      // 리스트 초기화
+      const list = document.getElementById("storeList");
+      list.innerHTML = "";
+
+      // 마커 제거
+      markers.forEach((m) => m.setMap(null));
+      markers = [];
+
+      data.forEach((store, idx) => {
+          /* 리스트 */
+          const li = document.createElement("li");
+          li.innerHTML = `
+          <div class="store-info">
+            <strong class="store-name">${store.name}</strong>
+            <p class="store-address">${store.address}</p>
+            <a href="${store.url}" class="store-cta">매장정보보기</a>
+          </div>
+        `;
+          list.appendChild(li);
+
+          /* 마커 */
+          const marker = new kakao.maps.Marker({
+              map,
+              position: new kakao.maps.LatLng(store.lat, store.lng),
+          });
+          li.querySelector(".store-cta").addEventListener("click", (e) => {
+              e.stopPropagation();
+          });
+          /* 리스트 클릭 → 지도 이동 */
+          li.addEventListener("click", () => {
+              map.setCenter(marker.getPosition());
+              document.querySelectorAll("#storeList li").forEach((el) => el.classList.remove("active"));
+              li.classList.add("active");
+          });
+          markers.push(marker);
+      });
+      // ✅ 첫 번째 항목 자동 활성화
+      if (data.length > 0) {
+        const firstLi = list.querySelector('li');
+        firstLi.classList.add('active');
+        map.setCenter(new kakao.maps.LatLng(data[0].lat, data[0].lng));
+        map.setLevel(4); // 원하는 줌 레벨로 조정
+      }
+    }
+
+    function applyFilter() {
+        const region = regionEl.value;
+        const type = typeEl.value;
+        const keyword = keywordEl.value.toLowerCase();
+
+        const filtered = stores.filter((s) => (!region || s.region === region) && (!type || s.type === type) && (!keyword || s.name.toLowerCase().includes(keyword)));
+
+        render(filtered);
+    }
+
+    const regionEl = document.getElementById("region");
+    const typeEl = document.getElementById("type");
+    const keywordEl = document.getElementById("keyword");
+
+    regionEl.onchange = typeEl.onchange = applyFilter;
+    keywordEl.oninput = applyFilter;
+
+    render(stores);
+</script>

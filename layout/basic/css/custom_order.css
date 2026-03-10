@@ -1,0 +1,40 @@
+   /** Order **/
+#userStyle {font-family: "Noto Sans KR", Arial, sans-serif !important;min-height: 100vh;background: #f2f2f2;}
+#userStyle #header .headerMenu .btnBasket .count{background:#F3A700 !important;}
+#userStyle #mCafe24Order .icoRequired{background-color:#F3A700 !important;border-radius: 100%;background: none;}
+#userStyle #mCafe24Order select{border-color:#eee;box-shadow: none;}
+#userStyle #titleArea.titleArea{background: #fff;}
+#userStyle #mCafe24Order .title h2{font-size:18px;}
+#userStyle #mCafe24Order input[type="text"],
+#userStyle #mCafe24Order input[type="password"],
+#userStyle #mCafe24Order input[type="number"],
+#userStyle #mCafe24Order input[type="tel"],
+#userStyle #mCafe24Order .directInput .directInput input{box-shadow: none;}
+#userStyle #orderFixItem.ec-base-button.gFull [class*="btn"]{background-color:#F3A700 !important;}
+#userStyle .header h1 a{display:block; width: 24px; height:24px; background:url('https://ecimg.cafe24img.com/pg2423b03056671078/nk0o0o/image/ico_home.svg') center/contain no-repeat; text-indent:-9999px;}
+#userStyle #mCafe24Order .ec-base-fold.selected > .contents, #userStyle #mCafe24Order .ec-base-fold.selected .deliveryInfo > .contents{border-top:none; border: 1px solid #eee;border-radius: 8px;}
+#userStyle #mCafe24Order .ec-base-table.typeWrite .ec-order-payment-cards th{display:none;}
+#userStyle #mCafe24Order #ec-jigsaw-area-paymethod .inner:before{display:none;}
+#userStyle #mCafe24Order #ec-jigsaw-area-paymethod .inner{padding:0;}
+#userStyle #mCafe24Order .totalPay .txtEm, #userStyle #mCafe24Order .totalPay.paymentPrice .txtStrong{color:#F3A700 !important}
+#userStyle #mCafe24Order .billingNshipping .ec-base-tab{margin-top:-20px;}
+#userStyle #mCafe24Order .ec-base-tab li.selected a{color:#333;}
+#userStyle #mCafe24Order .ec-base-tab li.selected::after {height: 2px;background: #333;}
+#userStyle #mCafe24Order .title{padding-inline:0;}
+#userStyle #mCafe24Order .ec-base-fold{padding:0 12px;}
+#userStyle #mCafe24Order .ec-base-fold.selected {padding-bottom:12px;}
+#userStyle #mCafe24Order .ec-paymethod-card .ec-base-label input[type="radio"]:checked + label{border-color: #F3A700 !important;border-width: 2px;}
+#userStyle #mCafe24Order .fRadio:not(:disabled):checked[type="radio"], #userStyle #mCafe24Order .selected > .fRadio, #userStyle #mCafe24Order input:not(:disabled):checked[type="radio"]{filter: saturate(0);}
+#userStyle #mCafe24Order input:not(:disabled):checked[type="checkbox"]{filter: saturate(0);}
+#userStyle #mCafe24Order .btnNormal, #userStyle #mCafe24Order .btnNormal.mini, #userStyle #mCafe24Order .btnBasic{box-shadow:none;border: 0;text-decoration: underline;font-size: 12px;line-height: 1.2;color: #888;font-weight: 300;height: auto;}
+#userStyle #mCafe24Order .discountDetail .displayFlex .control .discountPrice{box-shadow:none;}
+#userStyle #mCafe24Order .discountDetail .control{align-items:center;gap:8px}
+#userStyle #mCafe24Order .discountDetail .control .btnNormal{border:1px solid #ccc; display:flex;justify-content:center;align-items:center; padding-inline:8px; height:32px;font-weight:700;color:#333;text-decoration: none;border-radius: 9999px;font-size: 13px;}
+#userStyle #mCafe24Order .discountDetail .displayFlex, #userStyle #mCafe24Order .discountDetail .displayblock{display: flex;justify-content: flex-start;}
+#userStyle #mCafe24Order .discountDetail .heading{flex: auto;min-width: 0;width: 80px;margin: 0;}
+@media all and (min-width:1024px) {
+    #userStyle #mCafe24Order .rightGroup .stickyTop{top:80px;margin-top:20px; padding-top:20px; background:#fff;}
+    #userStyle #orderFixItem.ec-base-button.gFull {position: sticky !important;top: calc(var(--sticky-btn-top,442px) + 20px);}
+    #userStyle #mCafe24Order .ec-base-fold {margin-bottom: 8px;border-radius: 0;}
+	#userStyle #mCafe24Order .ec-base-fold.selected > .contents, .v2 #mCafe24Order .ec-base-fold.selected .deliveryInfo > .contents{margin-top:8px;}
+}

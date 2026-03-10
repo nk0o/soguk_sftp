@@ -1,0 +1,132 @@
+.xans-member-edit h3 { margin:50px 0 10px; font-size:16px; color:#2e2e2e; }
+.xans-member-edit select { height:24px; margin:0 4px 0 0; }
+.xans-member-edit input,
+.xans-member-edit textarea { padding:4px; border:1px solid #d9d9d9; color:#000; font-size:12px; }
+.xans-member-edit input[type=radio],
+.xans-member-edit input[type=checkbox] { width:14px; height:14px; margin:0 3px 0 0; padding:0; border:0; }
+.xans-member-edit div.grid,
+.xans-member-edit p.grid { margin:7px 0 0; }
+.xans-member-edit ul.grid li { margin:5px 0 0; }
+.xans-member-edit .info { margin:7px 0 0; color:#757575; font-size:11px; }
+.xans-member-edit .required { margin:-25px 0 10px; color:#353535; text-align:right; }
+.xans-member-edit .required img { vertical-align:middle; }
+
+.xans-member-edit .boardWrite { table-layout:fixed; border:1px solid #d7d5d5; line-height:180%; }
+.xans-member-edit .boardWrite th { width:130px; padding:10px 0 8px 20px; border-top:1px solid #e8e8e8; border-right:1px solid #e8e8e8; background-color:#fbfafa; text-align:left; font-weight:normal; vertical-align:middle; }
+.xans-member-edit .boardWrite td { width:auto; padding:10px 0 8px 10px; border-top:1px solid #e8e8e8; vertical-align:middle;}
+.xans-member-edit .boardWrite tr:first-child th,
+.xans-member-edit .boardWrite tr:first-child td { border-top:0; }
+.xans-member-edit .boardWrite input { height:14px; }
+.xans-member-edit .boardWrite select { height:24px; }
+.xans-member-edit .boardWrite img { vertical-align:middle; }
+.xans-member-edit .boardWrite a { text-decoration:none; }
+.xans-member-edit .boardWrite label { padding:0 20px 0 0; }
+.xans-member-edit .boardWrite.type th,
+.xans-member-edit .boardWrite.type td { padding:18px 0 18px 20px; }
+.xans-member-edit .boardWrite.typeAddinfo th,
+.xans-member-edit .boardWrite.typeAddinfo td { border-top:0; border-bottom:1px solid #e8e8e8; }
+.xans-member-edit .boardWrite.typeAddinfo label { display:inline-block; }
+.xans-member-edit .boardWrite .birth { margin:0 0 0 16px; }
+.xans-member-edit .boardWrite .interest { line-height:25px; }
+.xans-member-edit .boardWrite .interest label { padding:0 15px 0 0; }
+.xans-member-edit .boardWrite .account li { margin:5px 0 0; }
+.xans-member-edit .boardWrite .account li:first-child { margin-top:0; }
+.xans-member-edit .boardWrite .account span { display:inline-block; width:55px; }
+.xans-member-edit .boardWrite .account p { margin:3px 0 0 59px; }
+.xans-member-edit .boardWrite .account select { margin:0; }
+/* 회원인증 */
+.xans-member-edit .boardWrite.typeCertificate strong.txtEm { color:#008bcc; }
+.xans-member-edit .boardWrite.typeCertificate ul.certifInfo li,
+.xans-member-edit .boardWrite.typeCertificate p.certifInfo { color:#757575; padding:0 0 0 9px; background:url("http://img.echosting.cafe24.com/skin/base_ko_KR/common/bg_list.gif") no-repeat 0 10px; }
+.xans-member-edit .boardWrite.typeCertificate .certifForm { margin:20px 0 0; }
+.xans-member-edit .boardWrite.typeCertificate .certifForm img { margin:0 0 5px; }
+
+.xans-member-edit .boardList { border-bottom:1px solid #d7d5d5; }
+.xans-member-edit .boardList th { padding:9px 5px 7px; border-top:1px solid #d7d5d5; border-bottom:1px solid #d7d5d5; font-weight:normal; vertical-align:middle; background:#fbfafa; }
+.xans-member-edit .boardList td { padding:20px 5px 20px; border-top:1px solid #e8e8e8; line-height:1.5; vertical-align:middle; }
+.xans-member-edit .boardList .center { text-align:center; }
+
+.xans-member-edit .btnArea { overflow:hidden; position:relative; margin:20px 0 50px; text-align:right; }
+.xans-member-edit .btnArea span.left { float:left; }
+.xans-member-edit .btnArea span.right { float:right; }
+.xans-member-edit .btnArea.center { text-align:center; }
+.xans-member-edit .btnArea.center span.left { position:absolute; left:0; }
+.xans-member-edit .btnArea.center span.right { position:absolute; right:0; }
+
+/* INPUT SIZE */
+.xans-member-edit #hint_answer { width:500px; }
+.xans-member-edit #postcode1,
+.xans-member-edit #postcode2 { width:40px; text-align:center; }
+.xans-member-edit #addr1,
+.xans-member-edit #addr2 { width:280px; margin:5px 0 0; }
+.xans-member-edit #phone1,
+.xans-member-edit #mobile1 { width:60px; margin:0 4px 0 0; }
+.xans-member-edit #phone2,
+.xans-member-edit #phone3,
+.xans-member-edit #mobile2,
+.xans-member-edit #mobile3 { width:50px; margin:0 4px; }
+.xans-member-edit #email1 { margin-right:4px; }
+.xans-member-edit #email2 { margin:0 4px; }
+.xans-member-edit #birth_year,
+.xans-member-edit #marry_year,
+.xans-member-edit #partner_year { width:60px; margin:0 4px 0 0; }
+.xans-member-edit #birth_month,
+.xans-member-edit #marry_month,
+.xans-member-edit #partner_month,
+.xans-member-edit #birth_day,
+.xans-member-edit #marry_day,
+.xans-member-edit #partner_day { width:30px; margin:0 4px 0 0; }
+.xans-member-edit #bank_code { width:240px; }
+.xans-member-edit #c_bank_account_no { width:230px; }
+
+.xans-member-edit #job,
+.xans-member-edit #job_class,
+.xans-member-edit #school,
+.xans-member-edit #region,
+.xans-member-edit #internet,
+.xans-member-edit #child,
+.xans-member-edit #car,
+.xans-member-edit #earning { width:200px; }
+
+.xans-member-edit #add1,
+.xans-member-edit #add2,
+.xans-member-edit #add3,
+.xans-member-edit #add4,
+.xans-member-edit #add5,
+.xans-member-edit #add6,
+.xans-member-edit #add7,
+.xans-member-edit #add8,
+.xans-member-edit #add9  { width:500px; }
+
+/*탈퇴사유관리*/
+.xans-member-edit .layerLeave { position:fixed; top:50%; left:50%; z-index:1000; width:600px; margin:-205px 0 0 -300px; display:none; }
+.xans-member-edit .layerLeave h1 { height:35px; padding:0 35px 0 19px; color:#fff; font-size:14px; line-height:35px; background:#495164; }
+.xans-member-edit .layerLeave .content { border-right:1px solid #757575; border-left:1px solid #757575; background:#fff; }
+.xans-member-edit .layerLeave .subwrap { padding:20px; border-top:1px solid #e8e8e8; }
+.xans-member-edit .layerLeave .subwrap:first-child { border-top:0; }
+.xans-member-edit .layerLeave .subwrap h2 { font-size:12px; }
+.xans-member-edit .layerLeave .subwrap .info { position:relative; border:5px solid #e8e8e8; padding:10px; margin:0; }
+.xans-member-edit .layerLeave .subwrap .info .dcInfo { position:absolute; left:0; top:0; width:100px; padding:0 5px; height:100%; }
+.xans-member-edit .layerLeave .subwrap .info .dcInfo h2 { display:table; width:100%; height:100%; text-align:center; }
+.xans-member-edit .layerLeave .subwrap .info .dcInfo h2 span { display:table-cell; vertical-align:middle; }
+.xans-member-edit .layerLeave .subwrap .info ul { margin:0 0 0 100px; border-left:1px solid #e8e8e8; }
+.xans-member-edit .layerLeave .subwrap .info ul li { padding:10px 0 10px 10px; border-top:1px solid #e8e8e8; }
+.xans-member-edit .layerLeave .subwrap .info ul li:first-child { border-top:0; }
+.xans-member-edit .layerLeave .subwrap .info ul li strong { color:#008bcc; }
+.xans-member-edit .layerLeave .subwrap table { margin:10px 0 0; border:1px solid #d7d5d5; }
+.xans-member-edit .layerLeave .subwrap table th { padding:12px 10px 12px 20px; border-top:1px solid #e8e8e8; border-right:1px solid #e8e8e8; text-align:left; font-size:12px; font-weight:normal; background:#fbfafa; }
+.xans-member-edit .layerLeave .subwrap table td { padding:7px 10px; border-top:1px solid #e8e8e8; }
+.xans-member-edit .layerLeave .subwrap table tr:first-child th,
+.xans-member-edit .layerLeave .subwrap table tr:first-child td { border-top:0; }
+.xans-member-edit .layerLeave .subwrap table td select,
+.xans-member-edit .layerLeave .subwrap table td textarea { width:100%; font-size:12px; }
+.xans-member-edit .layerLeave .close { position:absolute; right:20px; top:10px; }
+.xans-member-edit .layerLeave .close img { cursor:pointer; }
+.xans-member-edit .layerLeave .btnArea { padding:9px 0; margin:0; border:1px solid #757575; border-top:1px solid #d7d5d5; text-align:center; background:#fbfafa; }
+.xans-member-edit .layerLeave .btnArea img:first-child { margin:0 1px 0 0; }
+
+/* 약관 */
+.xans-member-edit .agreeArea { padding:20px 20px 15px 20px; border:1px solid #d7d5d5; color:#747474; font-size:11px; line-height:20px; background:#fbfafa; }
+.xans-member-edit .agreeArea .agree { overflow:auto; height:110px; padding:20px; border:1px solid #e6e6e6; background:#fff; }
+.xans-member-edit .agreeArea .agree p { padding:0 0 17px; }
+.xans-member-edit .agreeArea .check { padding:7px 0 0 0; color:#202020; font-size:12px; }

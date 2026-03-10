@@ -1,0 +1,18 @@
+[
+  {
+    "product_no": "17",
+    "name": "홍길동",
+    "rating": 5,
+    "content": "배송 빠르고 좋아요!",
+    "date": "2025-01-12",
+    "image": "https://ecimg.cafe24img.com/pg2423b03056671078/nk0o0o/web/product/big/20251222/728e250a3e921844cffea040a8e51064.pngs"
+  },
+  {
+    "product_no": "13",
+    "name": "홍길동",
+    "rating": 4,
+    "content": "색감이 예뻐요",
+    "date": "2025-01-15",
+    "image": ""
+  }
+]
