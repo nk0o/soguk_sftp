@@ -17,7 +17,7 @@
             <p>{$board_info}</p>
         </div>
     </div>
-    <div module="board_read_8" class="{$block_target_class}" {$block_data_attr}>
+    <div module="board_read_8" class="{$block_target_class} gallery_board" {$block_data_attr}>
         <!--
             $delete_success_url = /board/gallery/list.html
             $login_page_url = /member/login.html
@@ -49,7 +49,21 @@
                 <span class="ec-base-help txtInfo">삭제하려면 비밀번호를 입력하세요.</span>
             </div>
             <div class="attach {$config.use_attach|display}">{$attach_file}</div>
-			<div class="detail {$block_content_class}">{$content_image}{$content}</div>
+			<div class="detail {$block_content_class}">{$content_image}{$content}
+      <div module="Layout_Poll">
+          <h3 class="ap-blind"><strong>질문 :</strong><span>{$poll_title}</span></h3>
+          <fieldset>
+            <legend class="displaynone">설문조사 항목 - 가장 마음에 드는 아이템을 투표 해 주세요 ↓</legend>
+            <ul class="event4u-poll__list">
+              <li>{$poll}{$poll_name} <p class="ap-blind">기호 1번-보네떼: 캠핑/가족 여행 등 차 타고 근교 여행갈 때 딱 좋아!</p></li>
+              <li>{$poll}{$poll_name} <p class="ap-blind">기호 2번-프리아핏에어: 가벼운 짐 챙겨 집 앞 산책하러 갈 때 딱 좋아!</p></li>
+              <li>{$poll}{$poll_name} <p class="ap-blind">기호 3번-볼레프로: 볼거리가 많은 테마파크, 공원 갈 때 딱 좋아!</p></li>
+            </ul>
+            <p class="btnPoll"><a href="#none" onclick="{$action_poll_submit}"><img src="/web/event/btn-poll.png" alt="투표하기"></a></p>
+          </fieldset>
+    </div>
+
+      </div>
 			<div class="ec-base-button report-button">
 				<span class="gRight">
 					<a href="#none" class="btnNormalFix sizeS {$is_report_display|display}" onclick="{$board_report_display}">신고</a>

@@ -59,22 +59,4 @@
 		</div>
 	</fieldset>
 </div>
-
-<div module="MyShop_OrderHistoryNologin" id="order_history_nologin_id">
-    <!--@css(/css/module/myshop/orderHistoryNologin.css)-->
-    <!--
-        $orderDetailUrl = /myshop/order/list.html
-    -->
-    <div class="login">
-		<div class="txt_nonmem_check">비회원 주문조회</div>
-        <div class="txtInfo typeDot">비회원의 경우, 주문시의 주문번호로 주문조회가 가능합니다.</div>
-        <div class="form">
-        	{$form.order_name}
-            {$form.order_id}
-            {$form.order_password}
-            <div class="login__button">
-            	<button type="submit" class="btnSubmit gFull sizeL">확인</button>
-            </div>
-        </div>
-    </div>
-</div>
+<a href="/member/login-nomember.html?noMemberOrder&returnUrl=%2Fmyshop%2Findex.html">비회원주문조회</a>

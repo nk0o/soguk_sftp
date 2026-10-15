@@ -3,6 +3,48 @@
     --c-dark:#1F1F1F;
     --c-white:#fff;
     --ts-h2: 44px;
+
+    /* SSENSE — Style Reference tokens (VISUAL only, 기존 변수 유지) */
+    --color-obsidian:#000000;
+    --color-graphite:#333333;
+    --color-silver:#979797;
+    --color-ash:#888888;
+    --color-marble:#f4f4f4;
+    --color-paper:#ffffff;
+    --color-mist:#e8e8e8;
+    --font-serif-ssense:'Playfair Display','GT Sectra',Georgia,'Times New Roman',serif;
+    --font-sans-ssense:'Inter','Sohne','Neue Haas Grotesk','Noto Sans KR',Arial,sans-serif;
+    --text-caption:11px;
+    --text-body-sm:14px;
+    --text-subheading:20px;
+    --text-heading-sm:29px;
+    --text-heading:38px;
+    --text-heading-lg:56px;
+    --text-display:95px;
+    --page-max-width:1440px;
+    --section-gap:64px;
+    --card-padding:20px;
+
+    /* ap-product.css 미정의 --ap-* fallback을 SSENSE 모노크롬으로 매핑 */
+    --ap-max-width:1440px;
+    --ap-color-bg-card:#ffffff;
+    --ap-color-ivory:#f4f4f4;
+    --ap-color-text-primary:#000000;
+    --ap-color-text-muted:#888888;
+    --ap-color-border:#979797;
+    --ap-color-cream:#ffffff;
+    --ap-color-gold-light:#e8e8e8;
+    --ap-color-success:#333333;
+    --ap-color-error:#000000;
+    --ap-font-sans:'Inter',Arial,sans-serif;
+    --ap-text-xs:11px;
+    --ap-text-sm:14px;
+    --ap-space-xs:10px;
+    --ap-space-sm:15px;
+    --ap-radius-sm:0px;
+    --ap-radius-md:0px;
+    --ap-tracking-wider:0em;
+    --ap-transition-fast:.25s ease;
 }
 #wrap.nana-wrap *{box-sizing: border-box;}
 #wrap.nana-wrap{overflow:visible !important;box-sizing: border-box;}
@@ -19,17 +61,29 @@
 .justify-center {display:flex !important; justify-content: center !important;}
 .align-center {display:flex !important; align-items: center !important;}
 .flex-center {display:flex !important; justify-content: center !important; align-items: center !important;}
-/* text */
-.nana-h2 {font-size:var(--ts-h2);line-height:1.2; text-align:center;}
+/* text — SSENSE editorial scale */
+.nana-h2 {font-family: var(--font-serif-ssense); font-size: var(--text-heading-lg); font-weight: 400; line-height: 1.07; letter-spacing: -0.04em; color: var(--color-graphite); text-align:center;}
 .text-center {text-align:center !important;}
-/* Button */
+/* Button — SSENSE Ghost Outlined (기존 클래스명 유지, visual만 변경) */
 .nana-btn--disabled { opacity: 0.8 !important; cursor: default !important; pointer-events: none !important; }
-.nana-btn { display: inline-flex !important; align-items: center !important; overflow: visible !important; position: relative !important; min-height: 48px !important; margin: 0 !important; padding: 0 16px !important; font-size: 18px !important; font-weight: 500 !important; letter-spacing: -0.49px !important; line-height: 1 !important; vertical-align: middle !important; border: 0 !important; background: none !important; white-space: nowrap !important; outline: none !important; cursor: pointer !important; transition: background-color 0.3s ease-out 0s, border-color 0.3s ease-out 0s !important; }
-.nana-btn--primary { color: var(--c-dark) !important; border: 1px solid var(--c-dark) !important; background-color: var(--c-white) !important; }
-.nana-btn--primary:hover{background-color: transparent !important; }
+.nana-btn { display: inline-flex !important; align-items: center !important; justify-content: center !important; overflow: visible !important; position: relative !important; min-height: 0 !important; margin: 0 !important; padding: 10px 20px !important; font-family: var(--font-sans-ssense) !important; font-size: 11px !important; font-weight: 400 !important; letter-spacing: normal !important; text-transform: uppercase !important; line-height: 1 !important; vertical-align: middle !important; border: 1px solid #000000 !important; border-radius: 0 !important; background: transparent !important; color: #000000 !important; white-space: nowrap !important; outline: none !important; cursor: pointer !important; transition: background-color 0.25s ease, color 0.25s ease !important; }
+.nana-btn:hover { background-color: #000000 !important; color: #ffffff !important; border-color: #000000 !important; }
+.nana-btn--primary { color: #000000 !important; border: 1px solid #000000 !important; background-color: transparent !important; }
+.nana-btn--primary:hover{background-color: #000000 !important; color: #ffffff !important; }
 .nana-btn--primary.nana-btn--line{background-color:transparent !important;}
-.nana-btn--primary.nana-btn--line:hover{background-color:var(--c-white) !important;}
-.main_top_banner{display:none !important;}
+.nana-btn--primary.nana-btn--line:hover{background-color:#000000 !important; color:#ffffff !important;}
+/* SSENSE 재사용 컴포넌트 (ap- 네이밍) */
+.ap-btn { display: inline-flex; align-items: center; justify-content: center; padding: 10px 20px; border: 1px solid #000000; border-radius: 0; background: transparent; color: #000000; font-family: var(--font-sans-ssense); font-size: 11px; font-weight: 400; text-transform: uppercase; letter-spacing: normal; line-height: 1; cursor: pointer; transition: background-color .25s ease, color .25s ease; }
+.ap-btn:hover { background: #000000; color: #ffffff; }
+.ap-micro-label { font-family: var(--font-sans-ssense); font-size: 11px; font-weight: 700; text-transform: uppercase; color: #000000; line-height: 1; letter-spacing: normal; }
+.ap-meta { font-family: var(--font-sans-ssense); font-size: 11px; font-weight: 400; color: #888888; line-height: 1.37; }
+.ap-editorial-title { font-family: var(--font-serif-ssense); font-weight: 400; color: #333333; letter-spacing: -0.04em; line-height: 1.07; }
+.main_top_banner{display:flex !important; background:#f4f4f4 !important; border-bottom:1px solid #979797 !important; min-height:35px !important; align-items:center !important; justify-content:center !important;}
+.main_top_banner .top_banner_box_inner{justify-content:center !important;}
+.main_top_banner .top_banner_box_inner .top_banner_text{text-align:center !important; flex:1;}
+.main_top_banner .top_banner_box_inner .top_banner_text a{font-family:'Inter',Arial,sans-serif !important; font-size:11px !important; font-weight:400 !important; text-transform:uppercase !important; letter-spacing:normal !important; color:#000000 !important;}
+.main_top_banner .top_banner_close{position:absolute !important; right:20px !important; margin-left:0 !important;}
+.main_top_banner .top_banner_close label{font-size:11px !important; text-transform:uppercase !important; color:#000 !important;}
 .toparea_shoppinginfo, #header .inner .toparea{display:none !important;}
 @media all and (max-width:1023px) {
     .follow-cursor{display:none;}
@@ -183,3 +237,176 @@
 .board-type__badge--review::after {content:'리뷰';  background-color: #4CAF50; color: white; }
 .board-type__badge--notice::after {content:'공지';  background-color: #ff9800; color: white; }
 .board-type__badge--qna::after {content:'문의';  background-color: #2196F3; color: white; }
+
+/* ==============================
+   SSENSE site-wide — header / nav / footer (VISUAL only)
+   module/HTML 변경 없음, layout.css를 custom.css에서 오버라이드
+   ============================== */
+/* Header shell: white gallery wall + hairline */
+#header.soguk-header { background: #ffffff !important; border-bottom: 1px solid #979797 !important; box-shadow: none !important; }
+#header .inner .top_nav_box { background-color: #ffffff !important; }
+/* Top utility links: 11px uppercase muted */
+#header .inner .toparea .toparea_state a { font-family: 'Inter',Arial,sans-serif !important; font-size: 11px !important; font-weight: 400 !important; text-transform: uppercase !important; letter-spacing: normal !important; color: #888888 !important; background: none !important; padding: 0 !important; margin: 0 0 0 20px !important; }
+#header .inner .toparea .toparea_state a:hover { color: #000000 !important; }
+#header .inner .toparea .toparea_shoppinginfo .xans-layout-shoppinginfo li a,
+#header .inner .toparea .toparea_shoppinginfo .xans-layout-shoppinginfo li strong { font-family: 'Inter',Arial,sans-serif !important; font-size: 11px !important; font-weight: 400 !important; text-transform: uppercase !important; color: #888888 !important; }
+/* Main category nav: 11px uppercase black + 1px underline */
+#header.soguk-header .inner .top_nav_box .top_category > ul > li > a { font-family: 'Inter',Arial,sans-serif !important; font-size: 11px !important; font-weight: 400 !important; text-transform: uppercase !important; letter-spacing: normal !important; color: #000000 !important; }
+#header.soguk-header .inner .top_nav_box .top_category > ul > li > a:after { background-color: #000000 !important; height: 1px !important; }
+/* Dropdown: flat white + hairline, sharp corners */
+#header.soguk-header .inner .top_nav_box .top_category .sub_cate01,
+#header.soguk-header .inner .top_nav_box .top_category .sub-category { border: 1px solid #979797 !important; border-radius: 0 !important; box-shadow: none !important; }
+#header.soguk-header .sub_cate01__container { border-top: 1px solid #979797 !important; border-bottom: 1px solid #979797 !important; }
+#header.soguk-header .sub_cate01__img { border-radius: 0 !important; overflow: hidden; }
+#header.soguk-header .sub_cate01__img img { border-radius: 0 !important; }
+/* My/shopping icons: monochrome */
+#header .inner .top_nav_box .top_mypage a { color: #000000 !important; }
+#header .inner .top_nav_box .top_mypage a.xans-layout-orderbasketcount .count { background-color: #000000 !important; color: #ffffff !important; border-radius: 0 !important; }
+/* Footer: marble canvas + monochrome type */
+#footer { background: #f4f4f4 !important; border-top: 1px solid #979797 !important; }
+#footer .inner { color: #000000 !important; }
+#footer .inner .bt_util ul li a { font-family: 'Inter',Arial,sans-serif !important; font-size: 11px !important; font-weight: 400 !important; text-transform: uppercase !important; letter-spacing: normal !important; color: #000000 !important; }
+#footer .inner .bt_info,
+#footer .inner .bt_cscenter,
+#footer .inner .bt_bank { font-size: 11px !important; color: #888888 !important; }
+#footer .inner .bt_info [data-ez-role="value"],
+#footer .inner .bt_cscenter [data-ez-role="value"] { color: #333333 !important; }
+#footer .inner .title { font-family: 'Inter',Arial,sans-serif !important; font-size: 11px !important; font-weight: 700 !important; text-transform: uppercase !important; color: #000000 !important; }
+
+/* ==============================
+   SSENSE — pagination (VISUAL only, 전역)
+   ec-base-paginate 원본 유지, 박스형 → 미니멀 숫자형으로 오버라이드
+   ============================== */
+#contents .ec-base-paginate.typeList,
+#contents .ec-base-paginate.typeSub { margin: 64px 0 !important; }
+#contents .ec-base-paginate.typeList > a,
+#contents .ec-base-paginate.typeSub > a { background: none !important; width: auto !important; height: auto !important; line-height: 1 !important; padding: 10px !important; }
+#contents .ec-base-paginate.typeList > a::after,
+#contents .ec-base-paginate.typeList > a::before { display: none !important; }
+#contents .ec-base-paginate.typeList ol li,
+#contents .ec-base-paginate.typeSub ol li { margin: 0 !important; }
+#contents .ec-base-paginate.typeList ol li a,
+#contents .ec-base-paginate.typeSub ol li a { font-family: 'Inter',Arial,sans-serif !important; font-size: 11px !important; font-weight: 400 !important; color: #888888 !important; border: 0 !important; background: transparent !important; width: auto !important; padding: 10px 8px !important; line-height: 1 !important; border-radius: 0 !important; }
+#contents .ec-base-paginate.typeList ol li a.this,
+#contents .ec-base-paginate.typeSub ol li a.this { color: #000000 !important; border-bottom: 1px solid #000000 !important; }
+
+/* ==============================
+   SSENSE feel-pass (VISUAL only, 전역)
+   기능·레이아웃 구조 유지, 표면만 통일
+   ============================== */
+body { font-family: 'Inter','Noto Sans KR',Arial,sans-serif !important; }
+/* Buttons: ghost language site-wide (size/position untouched) */
+#contents .btnSubmit, #contents .btnNormal, #contents .btnEm, #contents .btnBasic,
+#contents .ec-base-button a, #contents .ec-base-button button {
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  text-transform: uppercase !important;
+  letter-spacing: normal !important;
+}
+#contents .btnSubmit, #contents .ec-base-button a.btnSubmit {
+  background: transparent !important;
+  border: 1px solid #000000 !important;
+  color: #000000 !important;
+}
+#contents .btnSubmit:hover, #contents .ec-base-button a.btnSubmit:hover {
+  background: #000000 !important;
+  color: #ffffff !important;
+}
+/* Tables: hairline monochrome */
+#contents .ec-base-table table { border-top: 1px solid #000000 !important; }
+#contents .ec-base-table th, #contents .ec-base-table td { border-bottom: 1px solid #e8e8e8 !important; }
+#contents .ec-base-table th { font-size: 11px !important; font-weight: 700 !important; text-transform: uppercase !important; color: #000000 !important; background: transparent !important; }
+#contents .ec-base-table td { color: #333333 !important; }
+#contents .ec-base-table td a { color: #000000 !important; }
+/* Forms: sharp + black borders */
+#contents input[type="text"], #contents input[type="password"], #contents input[type="number"],
+#contents input[type="email"], #contents input[type="tel"], #contents select, #contents textarea {
+  border-radius: 0 !important;
+  border-color: #979797 !important;
+}
+#contents input:focus, #contents select:focus, #contents textarea:focus {
+  border-color: #000000 !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+/* Tabs: micro-label rhythm */
+#contents .ec-base-tab .menu li a {
+  font-size: 11px !important;
+  text-transform: uppercase !important;
+  letter-spacing: normal !important;
+  color: #888888 !important;
+  border-radius: 0 !important;
+}
+#contents .ec-base-tab .menu li.selected a { color: #000000 !important; border-color: #000000 !important; }
+
+/* ==============================
+   SSENSE header single bar (PC only, VISUAL only)
+   DOM/module 순서 불변, flex order로 좌메뉴·중로고·우유틸 1단 배열
+   ============================== */
+@media all and (min-width:1024px) {
+  #header.soguk-header .inner .top_nav_box {
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    align-items: center !important;
+    height: 56px !important;
+    background: #ffffff !important;
+    box-shadow: none !important;
+  }
+  #header.soguk-header .inner .top_nav_box div[data-ez-module='menu-main/1'] { width: auto !important; order: 1 !important; }
+  #header.soguk-header .inner .top_nav_box .top_category { margin: 0 !important; padding: 0 !important; }
+  #header.soguk-header .inner .top_nav_box .top_category > ul > li { height: 56px !important; padding: 0 10px !important; }
+  #header.soguk-header .inner .top_nav_box .top_category > ul > li > a { line-height: 56px !important; }
+  #header.soguk-header .inner .top_nav_box .top_logo { flex-basis: auto !important; height: 56px !important; margin: 0 auto !important; order: 2 !important; }
+  #header.soguk-header .inner .top_nav_box .top_logo a { margin-top: 0 !important; }
+  #header.soguk-header .inner .top_nav_box .top_mypage { position: static !important; height: 56px !important; order: 3 !important; margin-left: auto !important; }
+  #header.soguk-header .inner .top_nav_box .top_mypage a { margin-left: 20px !important; font-size: 11px !important; text-transform: uppercase !important; }
+  #header.soguk-header.fixed .inner .top_nav_box .top_category h1 {
+    position: static !important; transform: none !important; height: auto !important;
+    margin: 0 auto 0 0 !important; order: 2 !important;
+    font-size: 19px !important; font-weight: 400 !important;
+  }
+  #header.soguk-header .sub_cate01__container { top: 56px !important; }
+}
+
+/* ==============================
+   Hero chrome removal (index)
+   스와이퍼 동작 유지, 화살표·스크롤바만 제거
+   ============================== */
+.nana-hero .swiper-button-prev, .nana-hero .swiper-button-next { display: none !important; }
+.nana-hero .swiper-scrollbar { display: none !important; }
+
+/* ==============================
+   SSENSE myshop (VISUAL only, CSS-only)
+   module/변수/import 불변 — layout_logincheck/asyncbankbook/asyncbenefit/orderstate
+   ============================== */
+.section.path { font-family: 'Inter',Arial,sans-serif !important; font-size: 11px !important; text-transform: uppercase !important; letter-spacing: normal !important; color: #888888 !important; }
+.section.path a { color: #000000 !important; }
+.section.titleArea h2 { font-family: 'Playfair Display',Georgia,serif !important; font-size: 38px !important; font-weight: 400 !important; letter-spacing: -0.033em !important; line-height: 1.16 !important; color: #000000 !important; }
+.section.titleArea h2::before { content: "My Account"; display: block; font-family: 'Inter',Arial,sans-serif; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: normal; color: #000000; margin-bottom: 18px; }
+/* Benefit cards: flat 4-col, hairline top */
+.section.benefit ul { display: grid !important; grid-template-columns: repeat(4, 1fr); gap: 20px !important; }
+.section.benefit ul > li { border: 0 !important; border-top: 1px solid #979797 !important; border-radius: 0 !important; background: #ffffff !important; box-shadow: none !important; padding: 15px 0 0 0 !important; text-align: left !important; }
+.section.benefit .data { font-size: 19px !important; font-weight: 400 !important; letter-spacing: -0.013em !important; color: #000000 !important; }
+.section.benefit .title { font-size: 11px !important; font-weight: 400 !important; text-transform: uppercase !important; color: #888888 !important; }
+.section.benefit .user__info .txtEm1 { font-size: 19px !important; color: #000000 !important; }
+.section.benefit .user__data, .section.benefit p { font-size: 11px !important; color: #888888 !important; }
+.section.benefit .txtEm { color: #000000 !important; }
+/* Recommender invite: marble band + ghost button */
+.myshop_recommender .invite { background: #f4f4f4 !important; border-top: 1px solid #979797 !important; border-bottom: 1px solid #979797 !important; border-radius: 0 !important; font-size: 14px !important; color: #333333 !important; }
+.myshop_recommender .invite .btnNormal { border: 1px solid #000000 !important; border-radius: 0 !important; background: transparent !important; color: #000000 !important; font-size: 11px !important; text-transform: uppercase !important; }
+.myshop_recommender .invite .btnNormal:hover { background: #000000 !important; color: #ffffff !important; }
+.myshop_recommender .invite ul li { font-size: 11px !important; color: #888888 !important; }
+/* Order state: numerals + micro labels */
+.myshopMain .titleArea--middle h3 { font-family: 'Inter',Arial,sans-serif !important; font-size: 11px !important; font-weight: 700 !important; text-transform: uppercase !important; color: #000000 !important; }
+.myshopMain .titleArea--middle h3 .desc { font-weight: 400 !important; color: #888888 !important; }
+.myshopMain .state__order { display: grid !important; grid-template-columns: repeat(4, 1fr); gap: 20px !important; }
+.myshopMain .state__order li { border-top: 1px solid #979797 !important; padding-top: 15px !important; text-align: left !important; }
+.myshopMain .state__order .count { font-size: 29px !important; font-weight: 400 !important; letter-spacing: -0.018em !important; color: #000000 !important; }
+.myshopMain .state__order .label { font-size: 11px !important; text-transform: uppercase !important; color: #888888 !important; }
+.myshopMain .state__cs li { font-size: 11px !important; text-transform: uppercase !important; color: #888888 !important; }
+.myshopMain .state__cs strong { font-weight: 400 !important; }
+.myshopMain .state__cs .count { color: #000000 !important; }
+@media all and (max-width:1024px) {
+  .section.benefit ul { grid-template-columns: repeat(2, 1fr) !important; }
+  .myshopMain .state__order { grid-template-columns: repeat(2, 1fr) !important; }
+}

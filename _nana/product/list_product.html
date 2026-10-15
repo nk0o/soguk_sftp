@@ -1,0 +1,54 @@
+
+<!--@css(/_nana/product/list_product.css)-->
+<li class="item" id="anchorBoxId_{$product_no}">
+  <div class="box">
+    <a href="/product/detail.html{$param}" name="anchorBoxName_{$product_no}"><img
+        src="{$image_medium}" id="{$image_medium_id}" alt="" class="thumb" /></a>
+    <div class="status">
+      <div class="icon">{$soldout_icon} {$recommend_icon} {$new_icon} {$product_icons} {$benefit_icons}</div>
+      <div class="button"> <div class="option">{$option_preview_icon}</div> {$basket_icon} {$zoom_icon} </div>
+    </div>
+    <p class="name">
+      <strong>
+        <a href="/product/detail.html{$param}" class="{$product_name_display|display}">
+          <span class="title {$product_name_title_display|display}">{$product_name_title} :</span>
+          {$product_name}
+        </a>
+      </strong>
+    </p>
+    <ul module="product_ListItem">
+      <li class="{$item_display|display}">
+        <strong class="title {$item_title_display|display}">{$item_title} :</strong> {$item_content}
+      </li>
+      <li class="{$item_display|display}">
+        <strong class="title {$item_title_display|display}">{$item_title} :</strong> {$item_content}
+      </li>
+    </ul>
+  </div>
+</li>
+<li class="item" id="anchorBoxId_{$product_no}">
+  <div class="box">
+    <a href="/product/detail.html{$param}" name="anchorBoxName_{$product_no}"><img
+        src="{$image_medium}" id="{$image_medium_id}" alt="" class="thumb" /></a>
+    <div class="status">
+      <div class="icon">{$soldout_icon} {$recommend_icon} {$new_icon} {$product_icons} {$benefit_icons}</div>
+      <div class="button"> <div class="option">{$option_preview_icon}</div> {$basket_icon} {$zoom_icon} </div>
+    </div>
+    <p class="name">
+      <strong>
+        <a href="/product/detail.html{$param}" class="{$product_name_display|display}">
+          <span class="title {$product_name_title_display|display}">{$product_name_title} :</span>
+          {$product_name}
+        </a>
+      </strong>
+    </p>
+    <ul module="product_ListItem">
+      <li class="{$item_display|display}">
+        <strong class="title {$item_title_display|display}">{$item_title} :</strong> {$item_content}
+      </li>
+      <li class="{$item_display|display}">
+        <strong class="title {$item_title_display|display}">{$item_title} :</strong> {$item_content}
+      </li>
+    </ul>
+  </div>
+</li>

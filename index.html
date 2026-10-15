@@ -1,27 +1,58 @@
 <!--@layout(/layout/basic/layout.html)-->
 <!--@js(/layout/basic/js/main.js)-->
 <!--@css(/layout/basic/css/main.css)-->
-<section class="nana-hero" data-ez="module-0xfl772-1" data-ez-module="user-defined/1"
+<section class="ap-ed-shoptiles" aria-label="Shop categories">
+  <a href="/category/%EB%A7%88%EC%9A%B0%EC%8A%A4%ED%8C%A8%EB%93%9C/44/" class="ap-ed-shoptile">
+    <span class="ap-ed-shoptile__photo"><img src="https://ecimg.cafe24img.com/pg2423b03056671078/nk0o0o/web/product/medium/20260115/791794d052273e0f2cb7709ba402d9bb.png" alt="SOGUK 마우스패드" loading="lazy" ez-prevent="img"></span>
+    <span class="ap-ed-shoptile__title">Shop Mouse Pad</span>
+  </a>
+  <a href="/category/%EC%B9%B4%EB%93%9C%EC%BB%A4%EB%B2%84/45/" class="ap-ed-shoptile">
+    <span class="ap-ed-shoptile__photo"><img src="https://ecimg.cafe24img.com/pg2423b03056671078/nk0o0o/web/product/medium/20260108/4112327b03489423da8ce931c019ee6e.png" alt="SOGUK 카드커버" loading="lazy" ez-prevent="img"></span>
+    <span class="ap-ed-shoptile__title">Shop Card Cover</span>
+  </a>
+</section>
+<section class="nana-hero ap-ed-hero" data-ez="module-0xfl772-1" data-ez-module="user-defined/1"
   data-ez-name="USER DEFINED" data-ez-type="plain">
   <div class="nana-swiper nana-hero__inner">
     <div class="nana-hero__swiper swiper">
       <div class="swiper-wrapper">
-        <div class="swiper-slide swiper-slide-01">
-          <div class="swiper-slide__inner">
-            <h2 class="nana-h2">Slide01</h2>
-            <a href="/surl/O/13" class="nana-btn nana-btn--primary nana-btn--line">Read More</a>
+        <div class="swiper-slide ap-ed-hero__slide">
+          <div class="swiper-slide__inner ap-ed-hero__inner">
+            <div class="ap-ed-hero__text">
+              <p class="ap-micro-label">New Season</p>
+              <h2 class="ap-ed-hero__title">부드러운 하루의<br>시작</h2>
+              <p class="ap-ed-hero__desc">아이의 일상에 가장 닿는 것부터 바꿉니다. SOGUK의 새 시즌을 만나보세요.</p>
+              <a href="/surl/O/13" class="nana-btn nana-btn--primary nana-btn--line">View Editorial</a>
+            </div>
+            <div class="ap-ed-hero__photo">
+              <img src="https://ecimg.cafe24img.com/pg2423b03056671078/nk0o0o/image/250722_final_KR_main_Calming_Shot_pc_1920_1080_v2.jpg" alt="SOGUK Calming Shot 캠페인" loading="eager" ez-prevent="img">
+            </div>
           </div>
         </div>
-        <div class="swiper-slide swiper-slide-02">
-          <div class="swiper-slide__inner">
-            <h2 class="nana-h2">Slide02</h2>
-            <a href="#" class="nana-btn nana-btn--primary nana-btn--line">Read More</a>
+        <div class="swiper-slide ap-ed-hero__slide">
+          <div class="swiper-slide__inner ap-ed-hero__inner">
+            <div class="ap-ed-hero__text">
+              <p class="ap-micro-label">Editorial</p>
+              <h2 class="ap-ed-hero__title">가장 가까운 곳에서<br>가장 멀리</h2>
+              <p class="ap-ed-hero__desc">외출의 모든 순간을 함께하는 카시트와 유모차 컬렉션.</p>
+              <a href="/product/list.html?cate_no=46" class="nana-btn nana-btn--primary nana-btn--line">Shop Collection</a>
+            </div>
+            <div class="ap-ed-hero__photo">
+              <img src="https://ecimg.cafe24img.com/pg2423b03056671078/nk0o0o/image/250722_final_KR_main_Calming_Shot_pc_1920_1080_v2.jpg" alt="SOGUK 외출 컬렉션" loading="lazy" ez-prevent="img">
+            </div>
           </div>
         </div>
-        <div class="swiper-slide swiper-slide-03">
-          <div class="swiper-slide__inner">
-            <h2 class="nana-h2">Slide03</h2>
-            <a href="#" class="nana-btn nana-btn--primary nana-btn--line">Read More</a>
+        <div class="swiper-slide ap-ed-hero__slide">
+          <div class="swiper-slide__inner ap-ed-hero__inner">
+            <div class="ap-ed-hero__text">
+              <p class="ap-micro-label">Our Story</p>
+              <h2 class="ap-ed-hero__title">행운 가득한 날을 위한<br>최상의 선택</h2>
+              <p class="ap-ed-hero__desc">SOGUK이 지켜온 기준과 앞으로의 이야기를 전합니다.</p>
+              <a href="/ourstory.html" class="nana-btn nana-btn--primary nana-btn--line">Read More</a>
+            </div>
+            <div class="ap-ed-hero__photo">
+              <img src="https://ecimg.cafe24img.com/pg2423b03056671078/nk0o0o/image/house-7497001_1920.png" alt="SOGUK 브랜드 스토리" loading="lazy" ez-prevent="img">
+            </div>
           </div>
         </div>
       </div><!--//swiper-wrapper-->
@@ -40,19 +71,25 @@
     // });
   </script>
 </div>
-<div module="product_listmain_1">
+<div module="product_listmain_1" class="ap-ed-list">
   <!--@css(/css/module/product/479/listmain_1.css)-->
   <!--
         $count = 8
         $basket_result = /product/add_basket.html
         $basket_option = /product/basket_option.html
     -->
-  <h2><span>{$category_title_text}</span></h2>
-  <ul class="prdList column4">
-    <li class="item" id="anchorBoxId_{$product_no}">
+  <div class="ap-ed-sechead">
+    <div>
+      <p class="ap-micro-label">Featured</p>
+      <h2><span>{$category_title_text}</span></h2>
+    </div>
+    <p class="ap-meta">New Season — Image / Name / Price</p>
+  </div>
+  <ul class="prdList column4 ap-ed-list__grid">
+    <li class="item ap-ed-card" id="anchorBoxId_{$product_no}">
       <div class="box">
-        <a href="/product/detail.html{$param}" name="anchorBoxName_{$product_no}"><img
-            src="{$image_medium}" id="{$image_medium_id}" alt="" class="thumb" /></a>
+        <a href="/product/detail.html{$param}" name="anchorBoxName_{$product_no}" class="ap-ed-card__photo"><img
+            src="{$image_medium}" id="{$image_medium_id}" alt="{$product_name}" class="thumb" loading="lazy" /></a>
         <div class="status">
           <div class="icon">{$soldout_icon} {$recommend_icon} {$new_icon} {$product_icons}
             {$benefit_icons}</div>
@@ -76,10 +113,10 @@
         </ul>
       </div>
     </li>
-    <li class="item" id="anchorBoxId_{$product_no}">
+    <li class="item ap-ed-card" id="anchorBoxId_{$product_no}">
       <div class="box">
-        <a href="/product/detail.html{$param}" name="anchorBoxName_{$product_no}"><img
-            src="{$image_medium}" id="{$image_medium_id}" alt="" class="thumb" /></a>
+        <a href="/product/detail.html{$param}" name="anchorBoxName_{$product_no}" class="ap-ed-card__photo"><img
+            src="{$image_medium}" id="{$image_medium_id}" alt="{$product_name}" class="thumb" loading="lazy" /></a>
         <div class="status">
           <div class="icon">{$soldout_icon} {$recommend_icon} {$new_icon} {$product_icons}
             {$benefit_icons}</div>
@@ -108,79 +145,54 @@
 
 
 
-<section class="section nana-main_text main_text ez-textsize-medium ez-align-center"
-  data-ez-module="text/1" data-ez-role="style.background" data-ez-align="center"
-  data-ez-textsize="medium" style="background-color: rgb(255, 255, 255); margin-bottom: 0px;"
-  data-ez="contents-1ju1ne7-1"><!-- 메인 텍스트배너 수정하는곳 -->
-  <div class="main_text_title" data-ez-role="title">
-    <h2 class="nana-h2"><strong>행운 가득한 날을 위한<br>최상의 선택</strong></h2>
-  </div>
-  <div class="main_text_link"><a class="nana-btn nana-btn--primary" data-ez-role="a"
-      href="/ourstory.html" target="_self">브랜드 스토리 더 알아보기</a></div>
+<section class="ap-ed-feature" aria-label="Featured collections">
+  <a href="/product/list.html?cate_no=46" class="ap-ed-feature__card">
+    <span class="ap-ed-feature__photo"><img src="https://ecimg.cafe24img.com/pg2423b03056671078/nk0o0o/image/house-7497001_1920.png" alt="SOGUK 신상품 컬렉션" loading="lazy" ez-prevent="img"></span>
+    <span class="ap-meta">Featured</span>
+    <span class="ap-ed-feature__title">New Arrivals — 외출의 모든 순간</span>
+    <span class="ap-meta">Stroller | Car Seat | Outdoor</span>
+    <span class="nana-btn nana-btn--primary nana-btn--line ap-ed-feature__btn">Shop Now</span>
+  </a>
+  <a href="/ourstory.html" class="ap-ed-feature__card">
+    <span class="ap-ed-feature__photo"><img src="https://ecimg.cafe24img.com/pg2423b03056671078/nk0o0o/image/250722_final_KR_main_Calming_Shot_pc_1920_1080_v2.jpg" alt="SOGUK 에디토리얼" loading="lazy" ez-prevent="img"></span>
+    <span class="ap-meta">Featured</span>
+    <span class="ap-ed-feature__title">Editorial — 부드러운 하루</span>
+    <span class="ap-meta">Calming Shot | New Season</span>
+    <span class="nana-btn nana-btn--primary nana-btn--line ap-ed-feature__btn">View Editorial</span>
+  </a>
 </section>
-<section class="section nana-full revealing-image main_video nana-main_video ez-align-center"
-  data-ez-align="center" data-ez-module="video/1" data-ez-role="style.background"
-  data-ez="contents-0nbh7ua-1">
-  <div class="revealing-image__overlay-box"></div>
-  <div class="main_video_box revealing-image__img"><iframe data-ez-role="video" id="ytplayer"
-      type="text/html" src="https://m-img.cafe24.com/images/ec/sde/video/luminous_1366x720.mp4"
-      frameborder="0" allowfullscreen
-      data-ez-rawsrc="https://m-img.cafe24.com/images/ec/sde/video/luminous_1366x720.mp4"></iframe>
-  </div>
-</section>
-<section
-  class="section nana-full nana-collection revealing-image main_text ez-textsize-medium ez-align-center"
-  data-ez-module="text/1" data-ez-role="style.background" data-ez-align="center"
-  data-ez-textsize="medium" style="background-color: rgb(255, 255, 255); margin-bottom: 0px;"
-  data-ez="contents-1ju1ne7-1"><!-- 메인 텍스트배너 수정하는곳 -->
-  <div class="revealing-image__overlay-box">
-    <div data-aos="fade-up" data-aos-duration="800" data-aos-offset="-300">
-      <div class="main_text_title" data-ez-role="title">
-        <h2 class="nana-h2"><strong>COLLECTTION</strong></h2>
-      </div>
-      <a href="/product/list.html?cate_no=46" class="nana-btn nana-btn--primary">Read More</a>
+<section class="ap-ed-recent" aria-label="Recent stories">
+  <div class="ap-ed-sechead">
+    <div>
+      <p class="ap-micro-label">Stories</p>
+      <h2>Recent Editorials</h2>
     </div>
+    <p class="ap-meta">3 Stories — Image / Tag / Headline / Meta</p>
   </div>
-  <img class="revealing-image__img"
-    src="https://ecimg.cafe24img.com/pg2423b03056671078/nk0o0o/image/house-7497001_1920.png" alt
-    loading="lazy" ez-prevent="img">
+  <div class="ap-ed-recent__grid">
+    <a href="/category/%EB%A7%88%EC%9A%B0%EC%8A%A4%ED%8C%A8%EB%93%9C/44/" class="ap-ed-recent__card">
+      <span class="ap-ed-recent__photo"><img src="https://ecimg.cafe24img.com/pg2423b03056671078/nk0o0o/web/product/medium/20260115/791794d052273e0f2cb7709ba402d9bb.png" alt="책상 위 갤러리" loading="lazy" ez-prevent="img"></span>
+      <span class="ap-micro-label">Recent</span>
+      <span class="ap-ed-recent__title">책상 위 갤러리: 부드러운 터치의 완성</span>
+      <span class="ap-meta">Life | Oct 2026</span>
+    </a>
+    <a href="/category/%EC%B9%B4%EB%93%9C%EC%BB%A4%EB%B2%84/45/" class="ap-ed-recent__card">
+      <span class="ap-ed-recent__photo"><img src="https://ecimg.cafe24img.com/pg2423b03056671078/nk0o0o/web/product/medium/20260108/4112327b03489423da8ce931c019ee6e.png" alt="에브리데이 캐리" loading="lazy" ez-prevent="img"></span>
+      <span class="ap-micro-label">Recent</span>
+      <span class="ap-ed-recent__title">Everyday Carry, 주머니 속 작은 갤러리</span>
+      <span class="ap-meta">Life | Oct 2026</span>
+    </a>
+    <a href="/ourstory.html" class="ap-ed-recent__card">
+      <span class="ap-ed-recent__photo"><img src="https://ecimg.cafe24img.com/pg2423b03056671078/nk0o0o/image/250722_final_KR_main_Calming_Shot_pc_1920_1080_v2.jpg" alt="SOGUK 이야기" loading="lazy" ez-prevent="img"></span>
+      <span class="ap-micro-label">Recent</span>
+      <span class="ap-ed-recent__title">SOGUK이 지켜온 기준에 대하여</span>
+      <span class="ap-meta">Our Story | Oct 2026</span>
+    </a>
+  </div>
+  <div class="ap-ed-recent__more">
+    <a href="/board/%EC%83%81%ED%92%88-%EC%82%AC%EC%9A%A9%ED%9B%84%EA%B8%B0/4/" class="nana-btn nana-btn--primary nana-btn--line">View All Stories</a>
+  </div>
 </section>
-<div class="nana-foryou" data-ez="module-0buwrpq-1" data-ez-module="user-defined/1"
-  data-ez-name="USER DEFINED" data-ez-type="plain">
-  <h2 class="nana-h2"><strong>For You</strong></h2>
-  <div class="nana-swiper nana-foryou__inner">
-    <div class="nana-foryou__swiper swiper">
-      <div class="swiper-wrapper">
-        <div class="swiper-slide">
-          <img src="/shop1/skin-skin3/SkinImg/img/main_banner01_pc.png" loading="lazy"
-            ez-prevent="img">
-        </div>
-        <div class="swiper-slide">
-          <img src="/shop1/skin-skin3/SkinImg/img/main_banner02_pc.png" loading="lazy"
-            ez-prevent="img">
-        </div>
-        <div class="swiper-slide">
-          <img src="/shop1/skin-skin3/SkinImg/img/main_banner03_pc.png" loading="lazy"
-            ez-prevent="img">
-        </div>
-        <div class="swiper-slide">
-          <img src="/shop1/skin-skin3/SkinImg/img/main_banner01_pc.png" loading="lazy"
-            ez-prevent="img">
-        </div>
-        <div class="swiper-slide">
-          <img src="/shop1/skin-skin3/SkinImg/img/main_banner02_pc.png" loading="lazy"
-            ez-prevent="img">
-        </div>
-        <div class="swiper-slide">
-          <img src="/shop1/skin-skin3/SkinImg/img/main_banner03_pc.png" loading="lazy"
-            ez-prevent="img">
-        </div>
-      </div>
-    </div>
-    <div class="swiper-button-prev"></div>
-    <div class="swiper-button-next"></div>
-  </div><!--//nana-swiper-->
-</div>
 <div data-ez-module="user-defined/1" data-ez-name="USER DEFINED" data-ez-type="plain"
   data-ez="module-0gfrbp6-1">
   <script>
@@ -195,22 +207,6 @@
       scrollbar: {
         el: '.nana-hero .swiper-scrollbar',
       },
-    });
-    const swiper = new Swiper('.nana-foryou__swiper', {
-      slidesPerView: 1.25,
-      speed: 400,
-      spaceBetween: 20,
-      navigation: {
-        nextEl: '.nana-swiper .swiper-button-next',
-        prevEl: '.nana-swiper .swiper-button-prev',
-      },
-      breakpoints: {
-        // when window width is >= 320px
-        375: {
-          slidesPerView: 4,
-          spaceBetween: 16
-        },
-      }
     });
   </script>
 </div>

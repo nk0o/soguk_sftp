@@ -1,8 +1,8 @@
 /**
  * 상품상세 사용후기
  */
-$(function(){
-    $('.xans-product-review a').on('click', function(e) {
+$(document).ready(function(){
+    $('.xans-product-review a').click(function(e) {
         e.preventDefault();
 
         var no = $(this).attr('href').replace(/(\S*)[?&]no=(\d+)(\S*)/g, '$2');
@@ -20,13 +20,6 @@ $(function(){
 
         REVIEW.getReadData($(this));
     });
-
-    // review 탭 바로 활성화처리
-    var href = document.location.href.split('#')[1];
-    var winWidth = window.innerWidth;
-    if (winWidth < 1026 && href == 'use_review' || href == 'prdReview') {
-        $('a[name^="use_review"]').trigger('click');
-    }
 });
 
 var PARENT = '';
@@ -79,6 +72,7 @@ var REVIEW = {
                 //읽기 권한 체크
                 if (false === data.read_auth && eType == undefined) {
                     alert(decodeURIComponent(data.alertMSG));
+
                     //로그인페이지 이동
                     if (data.returnUrl != undefined) {
                         location.replace("/member/login.html?returnUrl=" + data.returnUrl);
@@ -90,10 +84,7 @@ var REVIEW = {
                     // 비밀글 비밀번호 입력 폼
                     aHtml.push('<form name="SecretForm_4" id="SecretForm_4">');
                     aHtml.push('<input type="text" name="a" style="display:none;">');
-                    aHtml.push('<div class="view secret">');
-                    aHtml.push('<p class="alert">이 글은 비밀글입니다. 비밀번호를 입력하여 주세요.</p>');
-                    aHtml.push('<p><input type="password" id="secure_password" name="secure_password" onkeydown="if (event.keyCode == 13) '+data.action_pass_submit+'"> <input type="button" value="확인" onclick="'+data.action_pass_submit+'" class="btnNormal"></p>');
-                    aHtml.push('</div>');
+                    aHtml.push('<div class="view"><p>비밀번호 <input type="password" id="secure_password" name="secure_password" onkeydown="if (event.keyCode == 13) '+data.action_pass_submit+'"> <input type="button" value="확인" onclick="'+data.action_pass_submit+'"></p></div>');
                     aHtml.push('</form>');
                 } else {
                     // 글 내용
@@ -103,54 +94,37 @@ var REVIEW = {
                         var sImg = '';
                     }
 
-                    aHtml.push('<div class="view '+ data.read['block_content_class'] +'">');
-					aHtml.push('<div id="ec-ucc-media-box-'+ data.read['no'] +'"></div>');
-                    aHtml.push('<p class="attach">'+sImg+'</p>');
+                    aHtml.push('<div class="view">');
                     aHtml.push('<p>'+data.read['content']+'</p>');
-                    aHtml.push('<div class="ec-base-button">');
-                    if (data.comment != undefined) {
-                        aHtml.push('<div class="gLeft"><a href="#none" class="btnNormal sizeS" onclick="REVIEW.comment_view('+data.read['no']+');">댓글보기 <em>'+data.read['comment_count']+'</em><i aria-hidden="true" class="icon icoArrowBottom"></i></a><a href="#none" class="btnNormal sizeS" onclick="REVIEW.comment_write(this);">쓰기</a>');
-                        if (data.write_auth == true) {
-                            aHtml.push('<a href="/board/product/modify.html?board_act=edit&no='+data.no+'&board_no=4&link_product_no='+iProductNo+'" class="btnNormal sizeS">수정</a>');
-                        }
-                        aHtml.push('</div>');
+                    aHtml.push('<p>'+sImg+'</p>');
+                    aHtml.push('<p class="ec-base-button"><span class="gLeft">');
+                    if (data.write_auth == true) {
+                        aHtml.push('<a href="/board/product/modify.html?board_act=edit&no='+data.no+'&board_no=4&link_product_no='+iProductNo+'"><img src="//img.echosting.cafe24.com/skin/base_ko_KR/product/btn_board_modify.gif" alt="게시글 수정하기" /></a>');
                     }
-					aHtml.push('<div class="gRight">');
-					aHtml.push('<a href="#none" class="btnNormal sizeS ' + data.read['report_open_btn'] +'" onclick="'+ data.read['report_open_layer_action'] +'">신고</a> ');
-					aHtml.push('<a href="#none" class="btnNormal sizeS '+ data.read['block_request_btn'] +'" onclick="'+ data.read['block_action'] +'">차단</a> ');
-					aHtml.push('<a href="#none" class="btnNormal sizeS '+ data.read['unblock_request_btn'] +'" onclick="'+ data.read['unblock_action'] +'">차단해제</a> ');
-					aHtml.push('</div>');
-                    aHtml.push('</div>');
+                    aHtml.push('</span></p>');
                     aHtml.push('</div>');
 
                     // 댓글리스트
                     if (data.comment != undefined && data.comment.length != undefined) {
-                        aHtml.push('<ul class="boardComment" id="commentList_'+data.read['no']+'" style="display:none;">');
+                        aHtml.push('<ul class="boardComment">');
                         for (var i=0; data.comment.length > i; i++) {
                             //댓글리스트
                             if (data.comment[i]['comment_reply_css'] == undefined) {
-                                aHtml.push('<li id="'+data.comment[i]['comment_reply_id']+'">');
-                                aHtml.push('<div class="commentInfo">');
+                                aHtml.push('<li>');
                                 aHtml.push('<strong class="name">'+data.comment[i]['member_icon']+' '+data.comment[i]['comment_name']+'</strong>');
                                 aHtml.push('<span class="date">'+data.comment[i]['comment_write_date']+'</span>');
-                                aHtml.push('<span class="grade '+data.use_point+'"><img src="//img.echosting.cafe24.com/skin/skin/board/icon-star-rating'+data.comment[i]['comment_point_count']+'.svg" alt="'+data.comment[i]['comment_point_count']+'점" /></span>');
-                                aHtml.push('</div>');
-                                aHtml.push('<p class="comment">'+data.comment[i]['comment_content']+'</p>');
+                                aHtml.push('<span class="grade '+data.use_point+'"><img src="//img.echosting.cafe24.com/skin/base_ko_KR/board/ico_point'+data.comment[i]['comment_point_count']+'.gif" alt="'+data.comment[i]['comment_point_count']+'점" /></span>');
                                 if (data.comment[i]['comment_reply_display'] == true) {
-                                    aHtml.push('<div class="ec-base-button">');
-                                    aHtml.push('<div class="gLeft"><a href="#none" class="btnNormal sizeS" onclick="REVIEW.comment_reply_view('+data.comment[i]['comment_no']+')">댓글의 댓글 <em>'+data.comment[i]['comment_reply_count']+'</em> <i aria-hidden="true" class="icon icoArrowBottom"></i></a></div>');
-                                    aHtml.push('<div class="gRight"><a href="#none" class="btnNormal sizeS" onclick="'+data.comment[i]['action_comment_reply_new']+'">쓰기</a></div>');
-                                    aHtml.push('</div>');
+                                    aHtml.push('<span class="button">'+'<a href="#none" onclick="'+data.comment[i]['action_comment_reply']+'"><img src="//img.echosting.cafe24.com/skin/base_ko_KR/board/btn_ico_reply.gif" alt="댓글" /></a>'+'</span>');
                                 }
+                                aHtml.push('<p class="comment">'+data.comment[i]['comment_icon_lock']+' '+data.comment[i]['comment_content']+'</p>');
                                 aHtml.push('</li>');
                             } else {
                                 //댓글의 댓글리스트
-                                aHtml.push('<li class="replyArea" style="display:none;" id="'+data.comment[i]['comment_reply_id']+'">');
-                                aHtml.push('<div class="commentInfo">');
+                                aHtml.push('<li class="replyArea">');
                                 aHtml.push('<strong class="name">'+data.comment[i]['member_icon']+' '+data.comment[i]['comment_name']+'</strong>');
                                 aHtml.push('<span class="date">'+data.comment[i]['comment_write_date']+'</span>');
-                                aHtml.push('</div>');
-                                aHtml.push('<p class="comment">'+data.comment[i]['comment_content']+'</p>');
+                                aHtml.push('<p class="comment">'+data.comment[i]['comment_icon_lock']+' '+data.comment[i]['comment_content']+'</p>');
                                 aHtml.push('</li>');
                             }
                         }
@@ -159,45 +133,39 @@ var REVIEW = {
 
                     // 댓글쓰기
                     if (data.comment_write != undefined) {
-                        aHtml.push('<form name="commentWriteForm_4'+data.key+'" id="commentWriteForm_4'+data.key+'" style="display:none;">');
+                        aHtml.push('<form name="commentWriteForm_4'+data.key+'" id="commentWriteForm_4'+data.key+'">');
                         aHtml.push('<div class="memoCont">');
-                        aHtml.push('<div class="writeForm">');
-                        aHtml.push('<div class="commentForm">' +data.comment_write['comment']+ '</div>');
-                        aHtml.push('<div class="infoForm"><p class="name"><span class="label">이름</span>' +data.comment_write['comment_name']+ '</p><p class="password"><span class="label">비밀번호</span>' +data.comment_write['comment_password']+ '</p>');
-                        aHtml.push('<p class="ec-base-help ' +data.comment_write['password_rule_help_display_class']+ '">영문 대소문자/숫자/특수문자 중 2가지 이상 조합, 10자~16자</p></div>');
-                        aHtml.push('<div class="ctrl">');
+                        aHtml.push('<div class="writer">');
+                        aHtml.push('<div class="user"><div class="nameArea">이름 '+data.comment_write['comment_name']+' 비밀번호 '+data.comment_write['comment_password']);
                         if (data.comment_write['comment_secret_display'] == true) {
                             aHtml.push('<label class="secret">'+data.comment_write['secure']+' 비밀댓글</label>');
                         }
-                        aHtml.push('<div class="button"><a href="#none" onclick="' +data.comment_write['action_comment_insert']+ '" class="btnSubmit sizeM">등록</a></div>');
+                        aHtml.push('<p class="ec-base-help '+data.comment_write['password_rule_help_display_class']+'">영문 대소문자/숫자/특수문자 중 2가지 이상 조합, 10자~16자</p>');
                         aHtml.push('</div>');
+                        aHtml.push(''+data.comment_write['comment']+'<a href="#none" onclick="'+data.comment_write['action_comment_insert']+'"><img src="//img.echosting.cafe24.com/skin/base_ko_KR/board/btn_comment_submit.gif" alt="확인" /></a></div>');
+                        aHtml.push('<p class="rating '+data.comment_write['use_point']+'">'+data.comment_write['comment_point']+'</p>');
+                        aHtml.push('<p class="text '+data.comment_write['use_comment_size']+'">'+data.comment_write['comment_byte']+' / '+data.comment_write['comment_size']+' byte</p>');
+                        aHtml.push('<p class="captcha '+data.comment_write['use_captcha']+'">'+data.comment_write['captcha_image']+data.comment_write['captcha_refresh']+data.comment_write['captcha']+'<img src="//img.echosting.cafe24.com/skin/base/common/ico_info.gif" alt="" /> 왼쪽의 문자를 공백없이 입력하세요.(대소문자구분)</p>');
                         aHtml.push('</div>');
-                        aHtml.push('<div class="byteRating"><p class="rating ' +data.comment_write['use_point']+ '">' +data.comment_write['comment_point']+ '</p><p class="byte ' +data.comment_write['use_comment_size']+ '">/ byte</p></div>');
-                        aHtml.push('<div class="captcha ' +data.comment_write['use_captcha']+ '"><span class="img"></span><div class="form">' +data.comment_write['captcha_image']+data.comment_write['captcha_refresh']+data.comment_write['captcha']+ '<p class="ec-base-help">왼쪽의 문자를 공백없이 입력하세요.(대소문자구분)</p></div></div>');
-
                         aHtml.push('</div>');
                         aHtml.push('</form>');
                     }
 
                     // 댓글의 댓글쓰기
-
                     if (data.comment_reply != undefined) {
                         aHtml.push('<form name="commentReplyWriteForm_4'+data.key+'" id="commentReplyWriteForm_4'+data.key+'" style="display:none">');
                         aHtml.push('<div class="memoCont reply">');
-                        aHtml.push('<div class="writeForm">');
-                        aHtml.push('<div class="commentForm">' +data.comment_reply['comment']+ '</div>');
-                        aHtml.push('<div class="infoForm"><p class="name"><span class="label">이름</span>' +data.comment_reply['comment_name']+ '</p><p class="password"><span class="label">비밀번호</span>' +data.comment_reply['comment_password']+ '</p>');
-                        aHtml.push('<p class="ec-base-help ' +data.comment_reply['password_rule_help_display_class']+ '">영문 대소문자/숫자/특수문자 중 2가지 이상 조합, 10자~16자</p></div>');
-                        aHtml.push('<div class="ctrl">');
+                        aHtml.push('<div class="writer">');
+                        aHtml.push('<div class="user"><div class="nameArea">이름 '+data.comment_reply['comment_name']+' 비밀번호 '+data.comment_reply['comment_password']);
                         if (data.comment_reply['comment_secret_display'] == true) {
                             aHtml.push('<label class="secret">'+data.comment_reply['secure']+' 비밀댓글</label>');
                         }
-                        aHtml.push('<div class="button"><a href="#none" onclick="' +data.comment_reply['action_comment_insert']+ '" class="btnSubmit">입력</a></div>');
+                        aHtml.push('<p class="ec-base-help '+data.comment_write['password_rule_help_display_class']+'">영문 대소문자/숫자/특수문자 중 2가지 이상 조합, 10자~16자</p>');
                         aHtml.push('</div>');
+                        aHtml.push(''+data.comment_reply['comment']+'<a href="#none" onclick="'+data.comment_reply['action_comment_insert']+'"><img src="//img.echosting.cafe24.com/skin/base_ko_KR/board/btn_comment_submit.gif" alt="확인" /></a></div>');
+                        aHtml.push('<p class="text '+data.comment_reply['use_comment_size']+'">'+data.comment_reply['comment_byte']+' / '+data.comment_reply['comment_size']+' byte</p>');
+                        aHtml.push('<p class="captcha '+data.comment_reply['use_captcha']+'">'+data.comment_reply['captcha_image']+data.comment_write['captcha_refresh']+data.comment_reply['captcha']+'<img src="//img.echosting.cafe24.com/skin/base/common/ico_info.gif" alt="" /> 왼쪽의 문자를 공백없이 입력하세요.(대소문자구분)</p>');
                         aHtml.push('</div>');
-                        aHtml.push('<div class="byteRating"><p class="byte '+data.comment_reply['use_comment_size']+'">'+data.comment_reply['comment_byte']+' / '+data.comment_reply['comment_size']+' byte</p></div>');
-                        aHtml.push('<div class="captcha ' +data.comment_reply['use_captcha']+ '"><span class="img"></span><div class="form">' +data.comment_reply['captcha_image']+data.comment_reply['captcha_refresh']+data.comment_reply['captcha']+ '<p class="ec-base-help">왼쪽의 문자를 공백없이 입력하세요.(대소문자구분)</p></div></div>');
-
                         aHtml.push('</div>');
                         aHtml.push('</form>');
                     }
@@ -205,65 +173,23 @@ var REVIEW = {
                     if (data.comment_secret != undefined) {
                         aHtml.push('<form name="commentSecretForm_4'+data.key+'" id="commentSecretForm_4'+data.key+'" style="display:none">');
                         aHtml.push('<div class="commentSecret">');
-                        aHtml.push('<p>비밀번호 '+data.comment_secret['secure_password']);
-                        aHtml.push(' <a href="#none" class="btnNormal" onclick="'+data.comment_secret['action_secret_submit']+'">확인</a>');
-                        aHtml.push(' <a href="#none" class="btnNormal" onclick="'+data.comment_secret['action_secret_cancel']+'">취소</a></p>');
+                        aHtml.push('<p>비밀번호 : '+data.comment_secret['secure_password']);
+                        aHtml.push(' <a href="#none" onclick="'+data.comment_secret['action_secret_submit']+'"><img src="//img.echosting.cafe24.com/skin/base_ko_KR/board/btn_ico_submit.gif" alt="확인" /></a>');
+                        aHtml.push(' <a href="#none" onclick="'+data.comment_secret['action_secret_cancel']+'"><img src="//img.echosting.cafe24.com/skin/base_ko_KR/board/btn_ico_cancel.gif" alt="취소" /></a></p>');
                         aHtml.push('</div>');
                         aHtml.push('</form>');
                     }
-
                 }
-                $(pNode).after('<tr id="product-review-read'+data.key+'" class="'+ data.read['block_target_class'] +'" '+ data.read['block_data_attr'] +'><td colspan="6">'+aHtml.join('')+'</td></tr>');
+
+                $(pNode).after('<tr id="product-review-read'+data.key+'"><td colspan="6">'+aHtml.join('')+'</td></tr>');
 
                 // 평점기능 사용안함일 경우 보여지는 td를 조절하기 위한 함수
                 PRODUCT_COMMENT.comment_colspan(pNode);
-				// 게시물 작성자 차단 기능
-                APP_BOARD_BLOCK.setBlockList();
-                APP_BOARD_REPORT.setReportLayerActions(data.read['report_action'], data.read['report_close_layer_action'], data.write_auth);
 
                 if (data.comment_write != undefined && data.comment_write['use_comment_size'] == '') PRODUCT_COMMENT.comment_byte(4, data.key);
                 if (data.comment_reply != undefined && data.comment_write['use_comment_size'] == '') PRODUCT_COMMENT.comment_byte(4, data.key, 'commentReplyWriteForm');
-				if (data.read['ucc_url']) $('#ec-ucc-media-box-'+ data.read['no']).replaceWith(APP_BOARD_UCC.getPreviewElement(data.read['ucc_url']));
             }
         });
-    },
-
-    // 댓글 보기
-    comment_view : function (sId)
-    {
-        if ($('#commentList_'+sId).css('display') == 'none') {
-            $('#commentList_'+sId).show();
-        } else {
-            $('#commentList_'+sId).hide();
-        }
-    },
-
-    // 댓글의 댓글 보기
-    comment_reply_view : function (iCommentNo)
-    {
-        $('[id^="replyArea_'+iCommentNo+'_"]').each(function(e) {
-            if ($(this).css('display') == 'none') {
-                $(this).show();
-            } else {
-                $(this).hide();
-            }
-        });
-    },
-
-    // 댓글 쓰기
-    comment_write : function (e)
-    {
-        var $form = $("#commentWriteForm_4");
-        if ($form.css('display') == 'none') {
-            $form.css('display', 'block');
-
-            var $p = $(e).parent().parent();
-            if ( $(e).parent().find('#commentWriteForm_4').length < 1 ) {
-                $p.after($form);
-            }
-        } else {
-            $form.hide();
-        }
     },
 
     END : function() {}

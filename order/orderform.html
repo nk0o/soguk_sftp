@@ -122,6 +122,42 @@
         </div>
     </div>
 
- 
+
+    <script>
+      //Gtag: 결제 시작
+      var items = [];
+      document.querySelectorAll('.prdBox').forEach(function(box){
+        var thumbLink = box.querySelector('.thumbnail a');
+        var nameEl = box.querySelector('.ec-product-name');
+        var priceEl = box.querySelector('.proPrice .display > span');
+
+        var itemId = '';
+        if (thumbLink) {
+          var m = thumbLink.getAttribute('href').match(/product_no=([^&]+)/);
+          if (m) itemId = m[1];
+        }
+
+        var price = priceEl ? (parseInt(priceEl.textContent.replace(/[^0-9]/g, ''), 10) || 0) : 0;
+
+        items.push({
+          item_id: itemId, // 예: 18
+          item_name: nameEl ? nameEl.textContent.trim() : '', // 예: 마우스패드3
+          price: price,
+          quantity: 1
+        });
+      });
+
+      var checkoutValue = items.reduce(function(sum, it){
+        return sum + (it.price * it.quantity);
+      }, 0);
+
+      gtag('event', 'begin_checkout', {
+        currency: 'KRW',
+        value: checkoutValue,
+        items: items
+      });
+    </script>
+
 </body>
 </html>
+

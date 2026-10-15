@@ -1,0 +1,442 @@
+
+  
+/* 제품 목록 */
+.forb .ec-base-tab.typeMenu, .forb .product_top_image{max-width: var(--ap-max-width) !important;}
+.forb .ec-base-product .prdList > li:hover .thumbnail{box-shadow: none;}
+.forb .ec-base-product ul.grid3 > li{}
+.forb .ec-base-product .prdList .description .name a{}
+.ap-prdItem__name{}
+@media all and (max-width: 1024px) {
+  .forb .ec-base-product ul.grid3 > li{width: 50%;} 
+}
+/* ──ap-prdItem · SSENSE gallery (클래스명 유지, visual만 변경) ── */
+.forb .ec-base-product .prdList{margin: 0 -10px 0;}
+.forb .ec-base-product .prdList .prdList__item{margin: 0 10px;}
+.forb .ec-base-product .prdList > li{margin-bottom: 64px;}
+
+.ap-prdItem { background: #ffffff; border: 0; border-radius: 0; overflow: hidden; }
+.ap-prdItem__thumbnail { position: relative;aspect-ratio: 3/4; overflow: hidden; background: #f4f4f4; display: flex; align-items: center; justify-content: center;margin:0 !important; color: #888888; font-size: 11px; letter-spacing: normal; text-transform: uppercase; border-radius: 0; }
+.ap-prdItem__thumbnail .ap-prdItem__thumbnail-img { width: 100%; height: 100%; object-fit: cover; position: absolute; inset: 0; }
+.ap-prdItem__overlay{position: absolute !important; inset: 0 !important; z-index: 3 !important; display: flex !important; align-items: flex-end !important; height: auto !important;padding: 20px !important; opacity: 0; transition: opacity .25s ease; pointer-events: none !important;}
+.ap-prdItem:hover .ap-prdItem__overlay { opacity: 1 !important; pointer-events: all !important; }
+
+.ap-prdItem__badge { position: absolute; top: 15px; left: 15px; z-index: 1; background: #000000; color: #fff; font-family: var(--font-sans-ssense, Arial, sans-serif); font-size: 11px; font-weight: 700; letter-spacing: normal; text-transform: uppercase; line-height: 1; padding: 6px 8px; border-radius: 0; }
+.ap-prdItem__badge--gold { background: #e8e8e8; color: #000000; }
+
+.ap-prdItem__buy{width: 100% !important; height: auto !important; padding: 10px 20px !important; background: transparent !important; backdrop-filter: none !important; border: 1px solid #000000 !important; border-radius: 0 !important; font-family: var(--font-sans-ssense, Arial, sans-serif); font-size: 11px !important; font-weight: 400 !important; letter-spacing: normal !important; text-transform: uppercase !important; line-height: 1 !important; color: #000000 !important; transition: background .25s ease, color .25s ease !important;}
+.ap-prdItem__buy:hover { background: #000000 !important; color: #ffffff !important; border-color: #000000 !important; }
+.ap-prdItem__body {display: flex; flex-direction: column; gap: 0;padding: 20px 0 0; margin: 0;font-size: initial; line-height: normal; background: #ffffff;}
+
+.ap-prdItem__notice{font-size: 11px; font-weight: 700; text-transform: uppercase; color: #000000; line-height: 1; letter-spacing: normal; }
+.ap-prdItem__name, .ap-prdItem__name span { font-size: 14px !important; font-weight: 400; color: #000000 !important; line-height: 1.37; letter-spacing: -0.004em; margin-bottom: 10px; }
+.ap-prdItem__cate{ font-size: 11px; letter-spacing: normal; color: #888888; text-transform: uppercase; line-height: 1; margin-bottom: 10px;}
+.ap-prdItem__desc { font-size: 14px; color: #888888; line-height: 1.37;}
+.ap-prdItem__price-row { display: flex; align-items: center; gap: 10px;margin-top:15px;}
+.ap-prdItem__price { font-size: 14px; font-weight: 400; color: #000000; letter-spacing: -0.004em; }
+.ap-prdItem__price--custom { font-size: 11px; font-weight: 400; color: #888888;text-decoration: line-through;}
+.ap-prdItem__price--line {text-decoration: line-through;}
+.ap-prdItem__price--sale {font-size: 14px; color: #000000; }
+.ap-prdItem__price.displaynone { text-decoration: none !important; display: block !important;}
+.ap-prdItem__price:not(.displaynone) { text-decoration: line-through !important; }
+.ap-prdItem__colorchip .color-chip { display: inline-block; width:20px; height:20px; border-radius: 50%; border:1px solid rgba(4,30,58,.5); position: relative }
+.ap-prdItem__colorchip .color-chip .chips {top: 50%; left: 50%; position: absolute; transform: translate(-50%, -50%); border-radius: 50%;  height: calc(100% - 5px); width: calc(100% - 5px);}
+
+
+@media (max-width: 768px) {
+  .ap-prdItem__body {
+      padding: 12px 12px 14px;
+  }
+}
+
+
+
+
+
+
+
+/* 상세페이지 */
+
+    .is-detail {
+  --black: #111;
+  --gray: #777;
+  --line: #ddd;
+  --bg: #f5f5f3;
+
+  color: var(--black);
+  font-family: inherit;
+}
+
+
+/* ==============================
+   COMMON
+============================== */
+
+.is-detail-eyebrow,
+.is-detail-section-title > span {
+  display: block;
+
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: .12em;
+  color: var(--gray);
+}
+
+
+/* ==============================
+   INTRO
+============================== */
+
+.is-detail-intro {
+  max-width: 900px;
+  margin: 0 auto;
+
+  padding: 180px 40px;
+
+  text-align: center;
+}
+
+.is-detail-intro h2 {
+  margin: 25px 0 35px;
+
+  font-size: clamp(42px, 5vw, 72px);
+  font-weight: 500;
+  line-height: 1.08;
+  letter-spacing: -.05em;
+}
+
+.is-detail-intro p {
+  margin: 0;
+
+  font-size: 15px;
+  line-height: 1.8;
+  color: var(--gray);
+}
+
+
+/* ==============================
+   SECTION TITLE
+============================== */
+
+.is-detail-section-title {
+  margin-bottom: 60px;
+}
+
+.is-detail-section-title h2 {
+  margin: 18px 0 0;
+
+  font-size: 36px;
+  font-weight: 500;
+  line-height: 1.2;
+  letter-spacing: -.03em;
+}
+
+
+/* ==============================
+   FEATURES
+============================== */
+
+.is-detail-features {
+  max-width: 1440px;
+  margin: 0 auto;
+
+  padding: 100px 0 180px;
+}
+
+.is-detail-feature {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+
+  margin-top: 100px;
+}
+
+.is-detail-feature--reverse {
+  direction: rtl;
+}
+
+.is-detail-feature--reverse > * {
+  direction: ltr;
+}
+
+
+.is-detail-feature__image {
+  min-height: 650px;
+
+  background: var(--bg);
+}
+
+
+.is-detail-feature__text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  padding: 80px;
+}
+
+.is-detail-feature__text > span {
+  margin-bottom: 25px;
+
+  font-size: 11px;
+  color: var(--gray);
+}
+
+.is-detail-feature__text h3 {
+  margin: 0;
+
+  font-size: clamp(34px, 4vw, 52px);
+  font-weight: 500;
+  line-height: 1.15;
+  letter-spacing: -.04em;
+}
+
+.is-detail-feature__text p {
+  max-width: 400px;
+
+  margin: 30px 0 0;
+
+  font-size: 14px;
+  line-height: 1.8;
+  color: var(--gray);
+}
+
+
+/* ==============================
+   DETAIL
+============================== */
+
+.is-detail-detail {
+  max-width: 1440px;
+  margin: 0 auto;
+
+  padding: 100px 0 180px;
+}
+
+.is-detail-detail__grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+
+.is-detail-detail__grid > div {
+  overflow: hidden;
+
+  min-height: 500px;
+
+  background: var(--bg);
+}
+
+.is-detail-detail__grid > div:first-child {
+  grid-column: span 2;
+
+  min-height: 700px;
+}
+
+
+/* ==============================
+   INFORMATION
+============================== */
+
+.is-detail-info {
+  max-width: 1000px;
+  margin: 0 auto;
+
+  padding: 100px 40px 180px;
+}
+
+.is-detail-info dl {
+  margin: 0;
+
+  border-top: 1px solid var(--black);
+}
+
+.is-detail-info dl > div {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+
+  padding: 22px 0;
+
+  border-bottom: 1px solid var(--line);
+}
+
+.is-detail-info dt {
+  font-size: 11px;
+  letter-spacing: .08em;
+  color: var(--gray);
+}
+
+.is-detail-info dd {
+  margin: 0;
+
+  font-size: 13px;
+}
+
+
+/* ==============================
+   MOBILE
+============================== */
+
+@media (max-width: 768px) {
+
+  .is-detail-intro {
+    padding: 100px 24px;
+  }
+
+  .is-detail-intro h2 {
+    font-size: 42px;
+  }
+
+
+  .is-detail-features {
+    padding: 60px 20px 100px;
+  }
+
+  .is-detail-section-title {
+    margin-bottom: 40px;
+  }
+
+  .is-detail-section-title h2 {
+    font-size: 28px;
+  }
+
+
+  .is-detail-feature,
+  .is-detail-feature--reverse {
+    display: flex;
+    flex-direction: column;
+
+    margin-top: 60px;
+
+    direction: ltr;
+  }
+
+  .is-detail-feature__image {
+    min-height: 0;
+    aspect-ratio: 1 / 1;
+  }
+
+  .is-detail-feature__text {
+    padding: 50px 10px 70px;
+  }
+
+
+  .is-detail-detail {
+    padding: 60px 20px 100px;
+  }
+
+  .is-detail-detail__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .is-detail-detail__grid > div,
+  .is-detail-detail__grid > div:first-child {
+    grid-column: auto;
+    min-height: 0;
+    aspect-ratio: 1 / 1;
+  }
+
+
+  .is-detail-info {
+    padding: 60px 20px 100px;
+  }
+
+  .is-detail-info dl > div {
+    grid-template-columns: 120px 1fr;
+  }
+
+}
+
+/* ==============================
+   SSENSE site-wide — product detail action + list tabs (VISUAL only)
+   module="product_action" / onclick action 변수 변경 없음
+   ============================== */
+/* Detail buy/wish: Ghost Outlined, sharp corners, monochrome */
+.productAction .btnSubmit,
+.productAction .btnNormal,
+#orderFixArea .btnSubmit,
+#orderFixArea .btnNormal {
+  font-family: 'Inter',Arial,sans-serif !important;
+  font-size: 11px !important;
+  font-weight: 400 !important;
+  text-transform: uppercase !important;
+  letter-spacing: normal !important;
+  border: 1px solid #000000 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  color: #000000 !important;
+  box-shadow: none !important;
+}
+.productAction .btnSubmit:hover,
+#orderFixArea .btnSubmit:hover {
+  background: #000000 !important;
+  color: #ffffff !important;
+}
+/* Option select buttons inside detail: same ghost language */
+.xans-product-detail .selectButton .btnSubmit {
+  font-family: 'Inter',Arial,sans-serif !important;
+  font-size: 11px !important;
+  text-transform: uppercase !important;
+  border: 1px solid #000000 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  color: #000000 !important;
+}
+/* Detail title/price: editorial serif + flat monochrome */
+.xans-product-detail .infoArea .xans-product-detaildesign h2,
+.xans-product-detail .infoArea h2 {
+  font-family: 'Playfair Display',Georgia,serif !important;
+  font-weight: 400 !important;
+  letter-spacing: -0.033em !important;
+  color: #000000 !important;
+}
+/* List category tabs: 11px uppercase micro-label rhythm */
+.forb .ec-base-tab.typeMenu ul li a {
+  font-family: 'Inter',Arial,sans-serif !important;
+  font-size: 11px !important;
+  font-weight: 400 !important;
+  text-transform: uppercase !important;
+  letter-spacing: normal !important;
+  color: #888888 !important;
+  border-radius: 0 !important;
+}
+.forb .ec-base-tab.typeMenu ul li.selected a,
+.forb .ec-base-tab.typeMenu ul li a:hover {
+  color: #000000 !important;
+}
+
+/* ==============================
+   SSENSE — detail review section (VISUAL only)
+   module="product_review"/paging 구조·변수 변경 없음
+   ============================== */
+.nana_product_additional #prdReview h2.title {
+  font-family: 'Inter',Arial,sans-serif !important;
+  font-size: 11px !important;
+  font-weight: 700 !important;
+  text-transform: uppercase !important;
+  letter-spacing: normal !important;
+  color: #000000 !important;
+}
+.nana_product_additional .dj-btn-2 {
+  display: inline-block;
+  font-family: 'Inter',Arial,sans-serif !important;
+  font-size: 11px !important;
+  font-weight: 400 !important;
+  text-transform: uppercase !important;
+  color: #000000 !important;
+  border: 1px solid #000000 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  padding: 10px 20px !important;
+  text-decoration: none !important;
+}
+.nana_product_additional .dj-btn-2:hover {
+  background: #000000 !important;
+  color: #ffffff !important;
+}
+.nana_product_additional #prdReview .ec-base-table.typeList td.subject a {
+  color: #000000 !important;
+}
+.nana_product_additional #prdReview .ec-base-table.typeList td {
+  font-size: 11px !important;
+  color: #888888 !important;
+}
+  

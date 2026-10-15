@@ -11,6 +11,58 @@
     <h2>설문조사</h2>
 </div>
 <div class="section">
+  <div module="Layout_Poll">
+    <h2>온라인 설문조사</h2>
+    <!--@css(/css/module/layout/poll/304/result.css)-->
+    <h3><strong>질문 :</strong><span>{$poll_title}</span></h3>
+    <fieldset>
+        <legend>설문조사 항목</legend>
+        <ul>
+            <li>{$poll}{$poll_name}</li>
+            <li>{$poll}{$poll_name}</li>
+            <li>{$poll}{$poll_name}</li>
+            <li>{$poll}{$poll_name}</li>
+        </ul>
+        <p class="btnResult"><a href="#none" onclick="
+          document.querySelector('.modal__poll').style.display = 'block';
+        ">결과보기</a></p>
+        <p class="btnPoll"><a href="#none" onclick="{$action_poll_submit}">투표하기</a></p>
+    </fieldset>
+  </div>
+
+<div class="modal__poll" style="display: none;">
+  
+    <div module="poll_result">
+      <!--@css(/css/module/poll/result.css)-->
+      <div class="header">
+          <h1>설문조사 결과</h1>
+      </div>
+      <div class="content">
+          <div class="summary">
+              <h2>{$title}</h2>
+              <p>- 총 투표수: {$total_count}</p>
+          </div>
+          <ol class="result">
+              <li>
+                  <p class="title"><strong title="항목">{$comment_title}</strong><span title="투표수">({$comment_count}표)</span></p>
+                  <p class="graph">
+                      <em title="투표율">{$comment_percentage}%</em>
+                      <span class="box"><span style="width:{$comment_percentage}%;">&nbsp;</span></span>
+                  </p>
+              </li>
+              <li>
+                  <p class="title"><strong title="항목">{$comment_title}</strong><span title="투표수">({$comment_count}표)</span></p>
+                  <p class="graph">
+                      <em title="투표율">{$comment_percentage}%</em>
+                      <span class="box"><span style="width:{$comment_percentage}%;">&nbsp;</span></span>
+                  </p>
+              </li>
+          </ol>
+      </div>
+  </div>
+</div>
+
+
     <div module="Layout_stateLogoff">
       <div class="nana-survey">
         <div class="nana-survey__login-required">
